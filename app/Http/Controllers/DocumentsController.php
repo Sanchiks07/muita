@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Documents;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DocumentsController extends Controller
 {

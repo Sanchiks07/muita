@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cases;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CasesController extends Controller
 {
