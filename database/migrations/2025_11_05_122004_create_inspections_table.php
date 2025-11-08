@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('inspections', function (Blueprint $table) {
             $table->id();
-            $table->string('id');
-            $table->foreign('case_id')->refrences('id')->on('cases');
+            $table->string('api_id')->unique();
+            $table->string('case_id');
+            $table->foreign('case_id')->references('api_id')->on('cases');
             $table->string('type');
             $table->string('requested_by');
-            // $table->string('start_ts'); - uataisi lai šis der kā timestamp
+            $table->string('start_ts');
             $table->string('location');
-            $table->foreign('plate_no')-refrencees('plate_no')->on('vehicles');
-            // $table->string(''); - uztaisi lai "checks", lai ir array
-            $table->foreign('assigned_to')->refrences('id')->on('users');
+            $table->json('checks');
+            $table->string('assigned_to');
+            $table->foreign('assigned_to')->references('api_id')->on('users');
             $table->timestamps();
         });
     }

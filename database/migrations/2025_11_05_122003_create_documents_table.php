@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('id');
-            $table->foreign('case_id')->refrences('id')->on('cases');
+            $table->string('api_id')->unique();
+            $table->string('case_id');
+            $table->foreign('case_id')->references('api_id')->on('cases');
             $table->string('filename');
             $table->string('mime_type');
             $table->string('category');
-            $table->number('pages');
-            $table->foreign('uploaded_by')->refrences('id')->on('users');
+            $table->integer('pages');
+            $table->string('uploaded_by');
+            $table->foreign('uploaded_by')->references('api_id')->on('users');
             $table->timestamps();
         });
     }

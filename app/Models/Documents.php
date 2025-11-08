@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Documents extends Model
 {
-    //
+    protected $fillable = [
+        'api_id',
+        'caase_id',
+        'filename',
+        'mime_type',
+        'category',
+        'pages',
+        'uploaded_by'
+    ];
 }

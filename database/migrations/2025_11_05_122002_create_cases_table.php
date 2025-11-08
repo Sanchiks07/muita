@@ -13,18 +13,21 @@ return new class extends Migration
     {
         Schema::create('cases', function (Blueprint $table) {
             $table->id();
-            $table->string('id');
+            $table->string('api_id')->unique();
             $table->string('external_ref');
             $table->string('status');
             $table->string('priority');
-            // $table->string('arrival_ts'); - uataisi lai šis der kā timestamp
+            $table->string('arrival_ts');
             $table->string('checkpoint_id');
             $table->string('origin_country');
             $table->string('destination_country');
             $table->json('risk_flags');
-            $table->foreign('declarant_id')->refrences('id')->on('parties');
-            $table->foreign('consignee_id')->refrences('id')->on('parties');
-            $table->foreign('vehicle_id')->refrences('id')->on('vehicles');
+            $table->string('declarant_id');
+            $table->foreign('declarant_id')->references('api_id')->on('parties');
+            $table->string('consignee_id');
+            $table->foreign('consignee_id')->references('api_id')->on('parties');
+            $table->string('vehicle_id');
+            $table->foreign('vehicle_id')->references('api_id')->on('vehicles');
             $table->timestamps();
         });
     }
