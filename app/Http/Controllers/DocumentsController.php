@@ -13,6 +13,19 @@ class DocumentsController extends Controller
      */
     public function index() {
         $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+
+        foreach ($muitaData['documents'] as $document) {
+            Documents::create([
+                'api_id' => $document['id'],
+                'case_id' => $document['case_id'],
+                'filename' => $document['filename'],
+                'mime_type' => $document['mime_type'],
+                'category' => $document['categpry'],
+                'pages' => $document['pages'],
+                'uploaded_by' => $document['uploaded_by']
+            ]);
+        }
+
         return view('data')->with([
             'data' =>  $muitaData
         ]);

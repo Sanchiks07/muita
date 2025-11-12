@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('checkpoint_id');
             $table->string('origin_country');
             $table->string('destination_country');
-            $table->json('risk_flags');
+            $table->json('risk_flags')->nullable();
             $table->string('declarant_id');
             $table->foreign('declarant_id')->references('api_id')->on('parties');
             $table->string('consignee_id');

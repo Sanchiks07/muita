@@ -10,8 +10,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::query()->update([
-            'password' => Hash::make('password123')
-        ]);
+        // 
     }
 }

@@ -13,6 +13,20 @@ class PartiesController extends Controller
      */
     public function index() {
         $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+
+        foreach ($muitaData['parties'] as $party) {
+            Parties::create([
+                'api_id' => $party['id'],
+                'type' => $party['type'],
+                'name' => $party['name'],
+                'reg_code' => $party['reg_code'],
+                'vat' => $party['vat'],
+                'country' => $party['country'],
+                'email' => $party['email'],
+                'phone' => $party['phone']
+            ]);
+        }
+
         return view('data')->with([
             'data' =>  $muitaData
         ]);

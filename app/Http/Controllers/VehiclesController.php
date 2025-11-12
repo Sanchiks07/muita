@@ -13,6 +13,18 @@ class VehiclesController extends Controller
      */
     public function index() {
         $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+
+        foreach ($muitaData['vehicles'] as $vehicle) {
+            Vehicles::create([
+                'api_id' => $vehicle['id'],
+                'plate_no' => $vehicle['plate_no'],
+                'country' => $vehicle['country'],
+                'make' => $vehicle['make'],
+                'model' => $vehicle['model'],
+                'vin' => $vehicle['vin']
+            ]);
+        }
+
         return view('data')->with([
             'data' =>  $muitaData
         ]);

@@ -13,6 +13,21 @@ class CasesController extends Controller
      */
     public function index() {
         $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+
+        foreach ($muitaData['cases'] as $case) {
+            Cases::create([
+                'api_id' => $case['id'],
+                'esxternal_ref' => $case['esxternal_ref'],
+                'status' => $case['status'],
+                'priority' => $case['priority'],
+                'arrival_ts' => $case['arrival_ts'],
+                'checkpoint_id' => $case['checkpoint_id'],
+                'origin_country' => $case['origin_country'],
+                'destination_country' => $case['destionation_country'],
+                'risk_flags' => $case['risk_flags']
+            ]);
+        }
+
         return view('data')->with([
             'data' =>  $muitaData
         ]);
