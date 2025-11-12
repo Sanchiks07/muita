@@ -22,7 +22,7 @@ class InspectionsController extends Controller
                 'requested_by' => $inspection['requested_by'],
                 'start_ts' => $inspection['start_ts'],
                 'location' => $inspection['location'],
-                'checks' => $inspection['checks']
+                'checks' => json_encode($inspection['checks'] ?? [])
             ]);
         }
 

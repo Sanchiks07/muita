@@ -20,7 +20,7 @@ class DocumentsController extends Controller
                 'case_id' => $document['case_id'],
                 'filename' => $document['filename'],
                 'mime_type' => $document['mime_type'],
-                'category' => $document['categpry'],
+                'category' => $document['category'],
                 'pages' => $document['pages'],
                 'uploaded_by' => $document['uploaded_by']
             ]);

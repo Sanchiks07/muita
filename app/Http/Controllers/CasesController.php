@@ -17,14 +17,14 @@ class CasesController extends Controller
         foreach ($muitaData['cases'] as $case) {
             Cases::create([
                 'api_id' => $case['id'],
-                'esxternal_ref' => $case['esxternal_ref'],
+                'esxternal_ref' => $case['external_ref'],
                 'status' => $case['status'],
                 'priority' => $case['priority'],
                 'arrival_ts' => $case['arrival_ts'],
                 'checkpoint_id' => $case['checkpoint_id'],
                 'origin_country' => $case['origin_country'],
-                'destination_country' => $case['destionation_country'],
-                'risk_flags' => $case['risk_flags']
+                'destination_country' => $case['destination_country'],
+                'risk_flags' => json_encode($case['risk_flags'] ?? [])
             ]);
         }
 
