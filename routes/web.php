@@ -11,3 +11,5 @@ use App\Http\Controllers\VehiclesController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
