@@ -1,0 +1,5 @@
+<nav>
+    @auth
+        
+    @endauth
+</nav>
