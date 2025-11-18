@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('origin_country');
             $table->string('destination_country');
             $table->string('risk_flags')->nullable();
-            $table->string('declerant_id');
-            $table->foreign('declerant_id')->references('api_id')->on('parties');
+            $table->string('declarant_id');
+            $table->foreign('declarant_id')->references('api_id')->on('parties');
             $table->string('consignee_id');
             $table->foreign('consignee_id')->references('api_id')->on('parties');
             $table->string('vehicle_id');
