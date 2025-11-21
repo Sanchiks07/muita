@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -12,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+        $muitaData = Http::withoutVerifying()->get('https://deskplan.lv/muita/app.json')->json();
 
         foreach ($muitaData['users'] as $users) {
             User::create([

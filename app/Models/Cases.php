@@ -11,7 +11,7 @@ class Cases extends Model {
         'status',
         'priority',
         'arrival_ts',
-        'checkpoint_ts',
+        'checkpoint_id',
         'origin_country',
         'destination_country',
         'risk_flags',

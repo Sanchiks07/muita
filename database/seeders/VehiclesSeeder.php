@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
+use App\Models\Vehicles;
 
 class VehiclesSeeder extends Seeder
 {
@@ -12,16 +14,16 @@ class VehiclesSeeder extends Seeder
      */
     public function run(): void
     {
-        $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+        $muitaData = Http::withoutVerifying()->get('https://deskplan.lv/muita/app.json')->json();
 
-        foreach ($muitaData['inspections'] as $inspections) {
-            Inspections::create([
-                'api_id' => $inspections['id'],
-                'plate_no' => $inspections['plate_no'],
-                'country' => $inspections['country'],
-                'make' => $inspections['make'],
-                'model' => $inspections['model'],
-                'vin' => $inspections['vin'],
+        foreach ($muitaData['vehicles'] as $vehicles) {
+            Vehicles::create([
+                'api_id' => $vehicles['id'],
+                'plate_no' => $vehicles['plate_no'],
+                'country' => $vehicles['country'],
+                'make' => $vehicles['make'],
+                'model' => $vehicles['model'],
+                'vin' => $vehicles['vin'],
             ]);
         }
     }

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
+use App\Models\Inspections;
 
 class InspectionsSeeder extends Seeder
 {
@@ -12,7 +14,7 @@ class InspectionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+        $muitaData = Http::withoutVerifying()->get('https://deskplan.lv/muita/app.json')->json();
 
         foreach ($muitaData['inspections'] as $inspections) {
             Inspections::create([

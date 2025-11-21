@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
+use App\Models\Parties;
 
 class PartiesSeeder extends Seeder
 {
@@ -12,18 +14,18 @@ class PartiesSeeder extends Seeder
      */
     public function run(): void
     {
-        $muitaData = Http::get('https://deskplan.lv/muita/app.json')->json();
+        $muitaData = Http::withoutVerifying()->get('https://deskplan.lv/muita/app.json')->json();
 
-        foreach ($muitaData['inspections'] as $inspections) {
-            Inspections::create([
-                'api_id' => $inspections['id'],
-                'type' => $inspections['type'],
-                'name' => $inspections['name'],
-                'reg_code' => $inspections['reg_code'],
-                'vat' => $inspections['vat'],
-                'country' => $inspections['country'],
-                'email' => json_encode($inspections['email']),
-                'phone' => $inspections['phone'],
+        foreach ($muitaData['parties'] as $parties) {
+            Parties::create([
+                'api_id' => $parties['id'],
+                'type' => $parties['type'],
+                'name' => $parties['name'],
+                'reg_code' => $parties['reg_code'],
+                'vat' => $parties['vat'],
+                'country' => $parties['country'],
+                'email' => json_encode($parties['email']),
+                'phone' => $parties['phone'],
             ]);
         }
     }
