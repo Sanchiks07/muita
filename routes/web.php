@@ -7,5 +7,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/cases', [CasesController::class, 'index']);
-Route::get('/cases/{case}', [CasesController::class, 'show']);

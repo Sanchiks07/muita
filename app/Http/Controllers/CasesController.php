@@ -12,9 +12,7 @@ class CasesController extends Controller
      */
     public function index()
     {
-        $cases = Cases::all();
-
-        return view('dashboard', compact('cases'));
+        //
     }
 
     /**
@@ -38,7 +36,7 @@ class CasesController extends Controller
      */
     public function show(Cases $cases)
     {
-        return view("case", compact("cases"));
+        //
     }
 
     /**
