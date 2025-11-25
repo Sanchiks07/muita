@@ -17,13 +17,20 @@ class UserSeeder extends Seeder
         $muitaData = Http::withoutVerifying()->get('https://deskplan.lv/muita/app.json')->json();
 
         foreach ($muitaData['users'] as $users) {
+            $password = match ($users['role']) {
+                'inspector' => 'inspector123',
+                'analyst' => 'analyst123',
+                'broker' => 'broker123',
+                default => 'admin123',
+            };
+
             User::create([
                 'api_id' => $users['id'],
                 'username' => $users['username'],
                 'full_name' => $users['full_name'],
                 'role' => $users['role'],
                 'active' => $users['active'],
-                'password' => 'password123',
+                'password' => $password,
             ]);
         }
     }

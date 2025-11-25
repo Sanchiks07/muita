@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('role');
             $table->boolean('active');
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
 
