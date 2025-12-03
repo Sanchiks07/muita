@@ -49,5 +49,13 @@ form {
     justify-content: center;
     align-items: center;
     height: calc(100vh - 60px);
-    width: 100vw;
+    width: 100%;
 }
+
+/* admin */
+table, th, td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 6px;
+}
+

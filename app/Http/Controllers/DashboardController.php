@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -12,7 +13,16 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $users = collect();
+
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            $users = DB::table('users')
+                ->select('api_id', 'username', 'full_name', 'role', 'active')
+                ->orderByRaw('CAST(api_id AS UNSIGNED)')
+                ->paginate(15);
+        }
+
+        return view('dashboard', compact('users'));
     }
 
     /**

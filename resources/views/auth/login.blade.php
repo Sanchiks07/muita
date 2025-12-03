@@ -3,7 +3,7 @@
         Login
     </x-slot:title>
 
-    <div class="container">
+    <div class="login-container">
         <h2>Login</h2><br>
         
         <form action="{{ route('login') }}" method="POST">
