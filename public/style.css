@@ -15,7 +15,7 @@ body {
 }
 
 /* ---------- NAVBAR ---------- */
-nav {
+.navigation {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -48,8 +48,9 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
     width: 100%;
+    padding: 25px 0 15px;
 }
 
 /* admin */
@@ -59,3 +60,61 @@ table, th, td {
     padding: 6px;
 }
 
+h1 {
+    margin-bottom: 15px;
+}
+
+/* ---------- PAGINATION ---------- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 6px;
+}
+
+.pagination a,
+.pagination span {
+    padding: 6px 10px;
+    font-size: 14px;
+    color: #111;
+    text-decoration: none;
+}
+
+.pagination .active span,
+.pagination .current {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.pagination .disabled span {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.pagination svg {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    display: none;
+}
+
+.pagination > nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    font-size: 14px;
+    gap: 12px;
+}
+
+.pagination .relative {
+    display: contents;
+}

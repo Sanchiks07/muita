@@ -18,6 +18,7 @@
                 @break
 
             @case('admin')
+                <h1>List of Users</h1>
                 <table>
                     <thead>
                         <tr>
@@ -47,11 +48,10 @@
                         @endforeach
                     </tbody>
                 </table>
-                @if(method_exists($users, 'links'))
-                    <div class="pagination">
-                        {{ $users->links() }}
-                    </div>
-                @endif
+
+                <div class="pagination">
+                    {{ $users->links() }}
+                </div>
                 @break
 
             @default
