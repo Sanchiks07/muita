@@ -17,12 +17,26 @@ body {
 /* ---------- NAVBAR ---------- */
 .navigation {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     width: 100%;
     height: 60px;
     border-radius: 10px;
     box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.navigation form {
+    display: flex;
+    flex-direction: row;
 }
 
 /* ---------- LOGIN ---------- */
@@ -84,8 +98,8 @@ h1 {
 .pagination span {
     padding: 6px 10px;
     font-size: 14px;
-    color: #111;
     text-decoration: none;
+    color: black;
 }
 
 .pagination .active span,

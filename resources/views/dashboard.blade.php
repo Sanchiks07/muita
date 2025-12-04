@@ -6,15 +6,130 @@
     <div class="container">
         @switch(auth()->user()->role)
             @case('inspector')
-                <div>inspector nam nam</div>
+                <h1>List of Cases</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Checkpoint</th>
+                            <th>Orign → Destination</th>
+                            <th>Declarant ID</th>
+                            <th>Consignee ID</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($cases as $case)
+                            <tr>
+                                <td>{{ $case->status }}</td>
+                                <td>{{ $case->priority }}</td>
+                                <td>{{ $case->checkpoint }}</td>
+                                <td>{{ $case->origin_country }} → {{ $case->destination_country }}</td>
+                                <td>{{ $case->declarant_id }}</td>
+                                <td>{{ $case->consignee_id }}</td>
+                                <td>
+                                    <a href="{{ route('users.edit', $user->api_id) }}">Edit</a>
+                                    <form method="POST" action="{{ route('users.destroy', $user->api_id) }}" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    {{ $cases->links() }}
+                </div>
                 @break
 
             @case('analyst')
-                <div>analyst nam nam</div>
+                <h1>List of Cases</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Checkpoint</th>
+                            <th>Orign → Destination</th>
+                            <th>Declarant ID</th>
+                            <th>Consignee ID</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($cases as $case)
+                            <tr>
+                                <td>{{ $case->status }}</td>
+                                <td>{{ $case->priority }}</td>
+                                <td>{{ $case->checkpoint }}</td>
+                                <td>{{ $case->origin_country }} → {{ $case->destination_country }}</td>
+                                <td>
+                                    @php
+                                        $flags = json_decode($case->risk_flags, true); <!-- decode as array -->
+                                    @endphp
+
+                                    @if ($flags && array_filter($flags)) <!-- array_filter removes empty strings -->
+                                        @foreach($flags as $flag)
+                                            <span style="display:block; margin-bottom:2px;">{{ $flag }}</span>
+                                        @endforeach
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                                <td>{{ $case->declarant_id }}</td>
+                                <td>{{ $case->consignee_id }}</td>
+                                <td>
+                                    <a href="{{ route('users.edit', $user->api_id) }}">Edit</a>
+                                    <form method="POST" action="{{ route('users.destroy', $user->api_id) }}" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    {{ $cases->links() }}
+                </div>
                 @break
 
             @case('broker')
-                <div>broker nam nam</div>
+                <h1>List of Documents</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Filename</th>
+                            <th>MIME Type</th>
+                            <th>Category</th>
+                            <th>Pages</th>
+                            <th>Uploaded By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($documents as $document)
+                            <tr>
+                                <td>{{ $document->case_id }}</td>
+                                <td>{{ $document->filename }}</td>
+                                <td>{{ $document->mime_type }}</td>
+                                <td>{{ $document->category }}</td>
+                                <td>{{ $document->pages }}</td>
+                                <td>{{ $document->uploaded_by }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    {{ $documents->links() }}
+                </div>
                 @break
 
             @case('admin')

@@ -14,15 +14,27 @@ class DashboardController extends Controller
     public function index()
     {
         $users = collect();
+        $documents = collect();
+        $cases = collect();
 
         if (auth()->check() && auth()->user()->role === 'admin') {
             $users = DB::table('users')
                 ->select('api_id', 'username', 'full_name', 'role', 'active')
                 ->orderByRaw('CAST(api_id AS UNSIGNED)')
                 ->paginate(15);
+        } else if (auth()->check() && auth()->user()->role === 'broker') {
+            $documents = DB::table('documents')
+                ->select('api_id', 'case_id', 'filename', 'mime_type', 'category', 'pages', 'uploaded_by')
+                ->orderByRaw('CAST(api_id AS UNSIGNED)')
+                ->paginate(15);
+        } else if (auth()->check() && auth()->user()->role === 'inspector' || auth()->user()->role === 'analyst') {
+            $cases = DB::table('cases')
+                ->select('api_id', 'external_ref', 'status', 'priority', 'arrival_ts', 'checkpoint_id', 'origin_country', 'destination_country', 'risk_flags', 'declarant_id', 'consignee_id', 'vehicle_id')
+                ->orderByRaw('CAST(api_id AS UNSIGNED)')
+                ->paginate(15);
         }
 
-        return view('dashboard', compact('users'));
+        return view('dashboard', compact('users', 'documents'));
     }
 
     /**

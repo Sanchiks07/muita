@@ -20,7 +20,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if (! auth()->check() || auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        return view('user_create');
     }
 
     /**
@@ -28,7 +32,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (! auth()->check() || auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
+        $data = $request->validate([
+            'api_id' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'full_name' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'string', 'in:inspector,analyst,broker,admin'],
+            'active' => ['nullable'],
+        ]);
+
+        $active = $request->has('active') ? 1 : 0;
+
+        DB::table('users')->insert([
+            'api_id' => $data['api_id'],
+            'username' => $data['username'],
+            'full_name' => $data['full_name'],
+            'role' => $data['role'],
+            'active' => $active,
+            'password' => hash('password'),
+        ]);
+
+        return redirect()->route('dashboard')->with('status', 'User created successfully.');
     }
 
     /**
@@ -54,7 +81,7 @@ class UserController extends Controller
             return redirect()->route('dashboard')->with('error', 'User not found.');
         }
 
-        return view('user_show', compact('user'));
+        return view('user_edit', compact('user'));
     }
 
     /**

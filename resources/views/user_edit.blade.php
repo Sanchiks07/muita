@@ -10,13 +10,13 @@
             @csrf
             @method('PUT')
 
-            <label>Username</label>
+            <label for="username">Username</label>
             <input type="text" name="username" value="{{ old('username', $user->username) }}" required>
 
-            <label>Full name</label>
+            <label for="full_name">Full name</label>
             <input type="text" name="full_name" value="{{ old('full_name', $user->full_name) }}" required>
 
-            <label>Role</label>
+            <label for="role">Role</label>
             <select name="role" required>
                 <option value="inspector" {{ $user->role === 'inspector' ? 'selected' : '' }}>Inspector</option>
                 <option value="analyst" {{ $user->role === 'analyst' ? 'selected' : '' }}>Analyst</option>
@@ -25,8 +25,8 @@
             </select>
 
             <label>
-                <input type="checkbox" name="active" value="1" {{ $user->active ? 'checked' : '' }}>
                 Active
+                <input type="checkbox" name="active" value="1" {{ $user->active ? 'checked' : '' }}>
             </label>
 
             <button type="submit">Save</button>

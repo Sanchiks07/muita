@@ -20,7 +20,11 @@ class DocumentsController extends Controller
      */
     public function create()
     {
-        //
+        if (! auth()->check() || auth()->user()->role !== 'broker') {
+            abort(403);
+        }
+
+        return view('document_create');
     }
 
     /**
@@ -28,7 +32,31 @@ class DocumentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (! auth()->check() || auth()->user()->role !== 'broker') {
+            abort(403);
+        }
+
+        $data = $request->validate([
+            'api_id' => ['required', 'string', 'max:255', 'unique:documents'],
+            'case_id' => ['required', 'string', 'max:255'],
+            'filename' => ['required', 'string', 'max:255'],
+            'mime_type' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'max:255'],
+            'pages' => ['required', 'integer'],
+            'uploaded_by' => ['required', 'string', 'max:255']
+        ]);
+
+        DB::table('users')->insert([
+            'api_id' => $data['api_id'],
+            'case_id' => $data['case_id'],
+            'filename' => $data['filename'],
+            'mime_type' => $data['mime_type'],
+            'category' => $data['category'],
+            'pages' => $data['pages'],
+            'uploaded_by' => $data['uploaded_by']
+        ]);
+
+        return redirect()->route('dashboard')->with('status', 'File uploaded successfully');
     }
 
     /**
