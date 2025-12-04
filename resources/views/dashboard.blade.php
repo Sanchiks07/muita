@@ -10,6 +10,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Case ID</th>
                             <th>Status</th>
                             <th>Priority</th>
                             <th>Checkpoint</th>
@@ -22,18 +23,19 @@
                     <tbody>
                         @foreach ($cases as $case)
                             <tr>
+                                <td>{{ $case->api_id }}</td>
                                 <td>{{ $case->status }}</td>
                                 <td>{{ $case->priority }}</td>
-                                <td>{{ $case->checkpoint }}</td>
+                                <td>{{ $case->checkpoint_id }}</td>
                                 <td>{{ $case->origin_country }} → {{ $case->destination_country }}</td>
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
                                 <td>
-                                    <a href="{{ route('users.edit', $user->api_id) }}">Edit</a>
-                                    <form method="POST" action="{{ route('users.destroy', $user->api_id) }}" style="display:inline">
+                                    <a href="{{ route('cases.edit', $case->api_id) }}">Edit</a>
+                                    <form method="POST" action="{{ route('cases.destroy', $case->api_id) }}" style="display:inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                                        <button type="submit" onclick="return confirm('Delete this case?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -51,10 +53,12 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Case ID</th>
                             <th>Status</th>
                             <th>Priority</th>
                             <th>Checkpoint</th>
                             <th>Orign → Destination</th>
+                            <th>Risk Flags</th>
                             <th>Declarant ID</th>
                             <th>Consignee ID</th>
                             <th>Actions</th>
@@ -63,14 +67,15 @@
                     <tbody>
                         @foreach ($cases as $case)
                             <tr>
+                                <td>{{ $case->api_id }}</td>
                                 <td>{{ $case->status }}</td>
                                 <td>{{ $case->priority }}</td>
-                                <td>{{ $case->checkpoint }}</td>
+                                <td>{{ $case->checkpoint_id }}</td>
                                 <td>{{ $case->origin_country }} → {{ $case->destination_country }}</td>
                                 <td>
-                                    @php
-                                        $flags = json_decode($case->risk_flags, true); <!-- decode as array -->
-                                    @endphp
+                                    <?php
+                                        $flags = json_decode($case->risk_flags, true); // decode as array
+                                    ?>
 
                                     @if ($flags && array_filter($flags)) <!-- array_filter removes empty strings -->
                                         @foreach($flags as $flag)
@@ -83,11 +88,11 @@
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
                                 <td>
-                                    <a href="{{ route('users.edit', $user->api_id) }}">Edit</a>
-                                    <form method="POST" action="{{ route('users.destroy', $user->api_id) }}" style="display:inline">
+                                    <a href="{{ route('cases.edit', $case->api_id) }}">Edit</a>
+                                    <form method="POST" action="{{ route('cases.destroy', $case->api_id) }}" style="display:inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                                        <button type="submit" onclick="return confirm('Delete this case?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -105,6 +110,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Document ID</th>
                             <th>Case ID</th>
                             <th>Filename</th>
                             <th>MIME Type</th>
@@ -116,6 +122,7 @@
                     <tbody>
                         @foreach ($documents as $document)
                             <tr>
+                                <td>{{ $document->api_id }}</td>
                                 <td>{{ $document->case_id }}</td>
                                 <td>{{ $document->filename }}</td>
                                 <td>{{ $document->mime_type }}</td>
@@ -137,6 +144,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>User ID</th>
                             <th>Username</th>
                             <th>Full Name</th>
                             <th>Role</th>
@@ -147,6 +155,7 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
+                                <td>{{ $user->api_id }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->full_name }}</td>
                                 <td>{{ $user->role }}</td>

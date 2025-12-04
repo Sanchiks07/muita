@@ -25,11 +25,11 @@ Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.de
 Route::get('/documents/create', [DocumentsController::class, 'create'])->name('document_create')->middleware('auth');
 Route::post('/documents', [DocumentsController::class, 'store'])->name('documents.store')->middleware('auth');
 
-// user crud routes - admin only
-// Route::get('/cases/create', [CasesController::class, 'create'])->name('case_create')->middleware('auth');
-// Route::post('/cases', [CasesController::class, 'store'])->name('cases.store')->middleware('auth');
-// Route::get('/cases/{id}/edit', [CasesController::class, 'edit'])->name('cases.edit')->middleware('auth');
-// Route::put('/cases/{id}', [CasesController::class, 'update'])->name('cases.update')->middleware('auth');
-// Route::delete('/cases/{id}', [CasesController::class, 'destroy'])->name('cases.destroy')->middleware('auth');
+// cases crud routes - inspector && analyst only
+Route::get('/cases/create', [CasesController::class, 'create'])->name('case_create')->middleware('auth');
+Route::post('/cases', [CasesController::class, 'store'])->name('cases.store')->middleware('auth');
+Route::get('/cases/{id}/edit', [CasesController::class, 'edit'])->name('cases.edit')->middleware('auth');
+Route::put('/cases/{id}', [CasesController::class, 'update'])->name('cases.update')->middleware('auth');
+Route::delete('/cases/{id}', [CasesController::class, 'destroy'])->name('cases.destroy')->middleware('auth');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');

@@ -20,6 +20,7 @@
 
             <label for="role">Role</label>
             <select id="role" name="role" required>
+                <option value="" disabled selected>Select a role</option>
                 <option value="inspector">Inspector</option>
                 <option value="analyst">Analyst</option>
                 <option value="broker">Broker</option>

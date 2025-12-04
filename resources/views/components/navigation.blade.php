@@ -1,6 +1,6 @@
 <nav class="navigation">
     @auth
-        @if(auth()->user()->role == 'inspector')
+        @if(auth()->user()->role == 'inspector' || auth()->user()->role == 'analyst')
             <ul>
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
             </ul>
@@ -21,7 +21,7 @@
         @endif
 
         <form method="GET" action="{{ route('dashboard') }}">
-            <input type="text" name="search" placeholder="Search..." />
+            <input type="text" name="search" placeholder="Search..." value="{{ request('search') }}" />
             <button type="submit">Search</button>
         </form>
 
