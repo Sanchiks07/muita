@@ -4,7 +4,9 @@
     </x-slot:title>
 
     <div class="container">
-        <form merhod="POST" action="{{ route('documents.store') }}">
+        <h2>Add New Document</h2>
+        
+        <form merhod="POST" action="{{ route('documents.store') }}" class="document-form">
             @csrf
 
             <label for="api_id">Document ID</label>

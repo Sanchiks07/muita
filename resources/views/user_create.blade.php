@@ -6,7 +6,7 @@
     <div class="container">
         <h2>Add New User</h2>
 
-        <form method="POST" action="{{ route('users.store') }}">
+        <form method="POST" action="{{ route('users.store') }}" class="user-form">
             @csrf
 
             <label for="api_id">User ID</label>
@@ -33,7 +33,13 @@
             </label>
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <div>
+                <input type="password" id="password" name="password" required>
+                <div class="tooltip">
+                    ⓘ
+                    <span class="tooltip-text">Password must be 'role'123</span>
+                </div>
+            </div>
 
             <button type="submit">Save</button>
         </form>

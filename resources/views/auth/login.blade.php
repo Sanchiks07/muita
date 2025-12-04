@@ -6,7 +6,7 @@
     <div class="login-container">
         <h2>Login</h2><br>
         
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('login') }}" method="POST" class="login-form">
             @csrf
             <select name="role" id="role" required>
                 <option value="" disabled selected>Select your role</option>

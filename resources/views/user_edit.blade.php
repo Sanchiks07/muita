@@ -6,7 +6,7 @@
     <div class="container">
         <h2>Edit {{ $user->username }}</h2>
 
-        <form method="POST" action="{{ route('users.update', $user->api_id) }}">
+        <form method="POST" action="{{ route('users.update', $user->api_id) }}" class="user-form">
             @csrf
             @method('PUT')
 
