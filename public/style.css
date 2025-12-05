@@ -6,7 +6,7 @@
 }
 
 body, input, button, select, textarea, label {
-    font-family: 'Inter', sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 body {
@@ -39,14 +39,29 @@ body {
     flex-direction: row;
 }
 
+.navigation a {
+    text-decoration: none;
+    color: black;
+    padding: 0 5px 0 10px;
+    transition: background-color 0.3s;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+    transition: 0.2s;
+}
+
 /* ---------- LOGIN ---------- */
-.login-container {
+.login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
+    height: 48vh;
+    width: 18vw;
+    border: solid 1px rgb(241, 171, 255);
+    border-radius: 20px;
+    box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
 }
 
 .login-form {
@@ -54,6 +69,39 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.login-form label {
+    margin-bottom: 5px;
+}
+
+.login-form input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.login-form select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    width: 100%;
+}
+
+.login-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #cfcfcf;
+    transition: 0.3s;
 }
 
 /* ---------- DASHBOARD ---------- */
@@ -76,6 +124,32 @@ table, th, td {
 
 h1 {
     margin-bottom: 15px;
+}
+
+.edit-btn {
+    text-decoration: none;
+    background-color: rgb(211, 211, 211);
+    border: solid 1px black;
+    color: black;
+    padding: 4px 8px;
+}
+
+.edit-btn:hover {
+    background-color: rgb(169, 169, 169);
+    transition: 0.2s;
+}
+
+.delete-btn {
+    padding: 4px 8px;
+    background-color: rgb(218, 23, 23);
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: rgb(250, 41, 41);
+    transition: 0.2s;
 }
 
 /* ---------- PAGINATION ---------- */

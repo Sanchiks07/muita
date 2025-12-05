@@ -31,11 +31,11 @@
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
                                 <td>
-                                    <a href="{{ route('cases.edit', $case->api_id) }}">Edit</a>
+                                    <a href="{{ route('cases.edit', $case->api_id) }}" class="edit-btn">Edit</a>
                                     <form method="POST" action="{{ route('cases.destroy', $case->api_id) }}" style="display:inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Delete this case?')">Delete</button>
+                                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this case?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -88,11 +88,11 @@
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
                                 <td>
-                                    <a href="{{ route('cases.edit', $case->api_id) }}">Edit</a>
+                                    <a href="{{ route('cases.edit', $case->api_id) }}" class="edit-btn">Edit</a>
                                     <form method="POST" action="{{ route('cases.destroy', $case->api_id) }}" style="display:inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Delete this case?')">Delete</button>
+                                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this case?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -161,11 +161,11 @@
                                 <td>{{ $user->role }}</td>
                                 <td>{{ $user->active ? 'True' : 'False' }}</td>
                                 <td>
-                                    <a href="{{ route('users.edit', $user->api_id) }}">Edit</a>
+                                    <a href="{{ route('users.edit', $user->api_id) }}" class="edit-btn">Edit</a>
                                     <form method="POST" action="{{ route('users.destroy', $user->api_id) }}" style="display:inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this user?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
