@@ -21,13 +21,19 @@
         @endif
 
         <form method="GET" action="{{ route('dashboard') }}">
-            <input type="text" name="search" placeholder="Search..." value="{{ request('search') }}" />
-            <button type="submit">Search</button>
+            <div>
+                <div class="search-tooltip">
+                    ⓘ
+                    <span class="search-tooltip-text">Case sensitive!</span>
+                </div>
+                <input type="text" name="search" class="searchbar" placeholder="Search..." value="{{ request('search') }}" />
+            </div>
+            <button type="submit" class="search-btn">Search</button>
         </form>
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="logout">Logout</button>
+            <button type="submit" class="logout-btn">Logout</button>
         </form>
     @endauth
 </nav>
