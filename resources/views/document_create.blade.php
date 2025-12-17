@@ -4,10 +4,10 @@
     </x-slot:title>
 
     <div class="container">
-        <div class="document-container">
+        <div class="create-container">
             <h2>Add Document</h2><br>
         
-            <form method="POST" action="{{ route('documents.store') }}" class="document-form">
+            <form method="POST" action="{{ route('documents.store') }}" class="create-form">
                 @csrf
 
                 <label for="api_id">Document ID</label>

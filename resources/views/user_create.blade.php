@@ -4,10 +4,10 @@
     </x-slot:title>
 
     <div class="container">
-        <div class="user-container">
+        <div class="create-container">
             <h2>Add New User</h2><br>
 
-            <form method="POST" action="{{ route('users.store') }}" class="user-form">
+            <form method="POST" action="{{ route('users.store') }}" class="create-form">
                 @csrf
 
                 <div>
