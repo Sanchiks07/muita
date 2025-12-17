@@ -44,7 +44,6 @@
                     Active
                     <input type="checkbox" name="active" value="1">
                 </label><br>
-
                 
                 <div>
                     <label for="password">Password</label>

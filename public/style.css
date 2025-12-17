@@ -51,6 +51,14 @@ body {
     transition: 0.2s;
 }
 
+/* logout un light mode pogas */
+.nav-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
 /* ---------- LOGIN ---------- */
 .login {
     display: flex;
@@ -166,6 +174,36 @@ h1 {
     width: 100%;
 }
 
+.document-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    min-width: 18vw;
+    padding: 35px 35px;
+    border: solid 1px rgb(241, 171, 255);
+    border-radius: 20px;
+    box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
+}
+
+.document-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.document-form label {
+    margin-bottom: 5px;
+}
+
+.document-form input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 /* ---------- BUTTONS ---------- */
 
 .save-btn {
@@ -247,6 +285,20 @@ h1 {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+}
+
+.mode-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.mode-btn:hover {
+    background-color: #cfcfcf;
+    transition: 0.3s;
 }
 
 /* ---------- PAGINATION ---------- */
@@ -333,7 +385,7 @@ h1 {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: #555 transparent transparent transparent;
+    border-color: #555 transparent transparent transparent; /* shows where the arrow is pointing */
 }
 
 .tooltip:hover .tooltip-text {
@@ -374,10 +426,64 @@ h1 {
     transform: translateY(-50%);
     border-width: 5px;
     border-style: solid;
-    border-color: transparent #555 transparent transparent;
+    border-color: transparent transparent transparent #555;
 }
 
 .search-tooltip:hover .search-tooltip-text {
     visibility: visible;
     opacity: 1;
+}
+
+/* ---------- LIGHT and DARK MODE ---------- */
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+.dark-mode input, .dark-mode select {
+    background-color: #333;
+    color: #f0f0f0;
+    border: 1px solid #555;
+}
+
+.dark-mode table, .dark-mode th, .dark-mode td {
+    border: 1px solid #555;
+}
+
+.dark-mode .pagination a, .dark-mode .pagination span {
+    color: #f0f0f0;
+}
+
+.dark-mode .search-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .logout-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .edit-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .delete-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .save-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .mode-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .navigation a {
+    color: #f0f0f0;
 }

@@ -24,11 +24,19 @@ class DashboardController extends Controller
                 ->orderByRaw('CAST(api_id AS UNSIGNED)');
             
             if ($search) {
-                $query->where('api_id', 'LIKE BINARY', "%$search%")
+                $query->where(function($q) use ($search) {
+                    $q->where('api_id', 'LIKE BINARY', "%$search%")
                       ->orWhere('username', 'LIKE BINARY', "%$search%")
                       ->orWhere('full_name', 'LIKE BINARY', "%$search%")
-                      ->orWhere('role', 'LIKE BINARY', "%$search%")
-                      ->orWhere('active', 'LIKE BINARY', "%$search%");
+                      ->orWhere('role', 'LIKE BINARY', "%$search%");
+                    
+                    // Handle True/False search for active column
+                    if (strtolower($search) === 'true') {
+                        $q->orWhere('active', 1);
+                    } elseif (strtolower($search) === 'false') {
+                        $q->orWhere('active', 0);
+                    }
+                });
             }
             
             $users = $query->paginate(15);
