@@ -3,6 +3,7 @@
         @if(auth()->user()->role == 'inspector' || auth()->user()->role == 'analyst')
             <ul>
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('cases.create') }}">Case Register</a></li>
             </ul>
         @endif
 

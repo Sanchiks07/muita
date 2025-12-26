@@ -64,7 +64,7 @@
         <br><br>
         <div style="display:flex; gap:10px;">
             <a href="{{ route('cases.edit', $case->api_id) }}" class="edit-btn">Edit Case</a>
-            <a href="{{ route('dashboard') }}" class="cancel-btn">Back to Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="back-btn">Back to Dashboard</a>
         </div>
     </div>
 </x-layout>

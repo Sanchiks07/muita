@@ -42,7 +42,7 @@ class CasesController extends Controller
             'external_ref' => ['required', 'string', 'max:255'],
             'status' => ['required', 'string', 'max:255'],
             'priority' => ['required', 'string', 'max:255'],
-            'arrival_ts' => ['required', 'string', 'max:255'],
+            'arrival_ts' => ['required', 'date_format:Y-m-d\TH:i'],
             'checkpoint_id' => ['required', 'string', 'max:255'],
             'origin_country' => ['required', 'string', 'max:255'],
             'destination_country' => ['required', 'string', 'max:255'],
@@ -52,12 +52,15 @@ class CasesController extends Controller
             'vehicle_id' => ['required', 'string', 'max:255'],
         ]);
 
+        // Convert datetime-local format to database format
+        $arrivalTs = str_replace('T', ' ', $data['arrival_ts']);
+
         DB::table('cases')->insert([
             'api_id' => $data['api_id'],
             'external_ref' => $data['external_ref'],
             'status' => $data['status'],
             'priority' => $data['priority'],
-            'arrival_ts' => $data['arrival_ts'],
+            'arrival_ts' => $arrivalTs,
             'checkpoint_id' => $data['checkpoint_id'],
             'origin_country' => $data['origin_country'],
             'destination_country' => $data['destination_country'],
@@ -65,6 +68,8 @@ class CasesController extends Controller
             'declarant_id' => $data['declarant_id'],
             'consignee_id' => $data['consignee_id'],
             'vehicle_id' => $data['vehicle_id'],
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         return redirect()->route('dashboard')->with('status', 'Case created successfully.');
@@ -119,22 +124,27 @@ class CasesController extends Controller
             'external_ref' => ['required', 'string', 'max:255'],
             'status' => ['required', 'string', 'max:255'],
             'priority' => ['required', 'string', 'max:255'],
+            'arrival_ts' => ['required', 'date_format:Y-m-d\TH:i'],
             'checkpoint_id' => ['required', 'string', 'max:255'],
             'origin_country' => ['required', 'string', 'max:255'],
             'destination_country' => ['required', 'string', 'max:255'],
-            'risk_flags' => ['required', 'string', 'max:255'],
+            'risk_flags' => ['nullable', 'string', 'max:1000'],
             'declarant_id' => ['required', 'string', 'max:255'],
             'consignee_id' => ['required', 'string', 'max:255']
         ]);
+
+        // Convert datetime-local format to database format
+        $arrivalTs = str_replace('T', ' ', $data['arrival_ts']);
 
         DB::table('cases')->where('api_id', $id)->update([
             'external_ref' => $data['external_ref'],
             'status' => $data['status'],
             'priority' => $data['priority'],
+            'arrival_ts' => $arrivalTs,
             'checkpoint_id' => $data['checkpoint_id'],
             'origin_country' => $data['origin_country'],
             'destination_country' => $data['destination_country'],
-            'risk_flags' => $data['risk_flags'],
+            'risk_flags' => $data['risk_flags'] ?? null,
             'declarant_id' => $data['declarant_id'],
             'consignee_id' => $data['consignee_id']
         ]);
