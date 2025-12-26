@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -45,6 +46,7 @@ class UserController extends Controller
         ]);
 
         $active = $request->has('active') ? 1 : 0;
+        $passwordHash = Hash::make($data['role'] . '123');
 
         DB::table('users')->insert([
             'api_id' => $data['api_id'],
@@ -52,7 +54,7 @@ class UserController extends Controller
             'full_name' => $data['full_name'],
             'role' => $data['role'],
             'active' => $active,
-            'password' => hash('password'),
+            'password' => $passwordHash,
         ]);
 
         return redirect()->route('dashboard')->with('status', 'User created successfully.');
@@ -101,12 +103,14 @@ class UserController extends Controller
         ]);
 
         $active = $request->has('active') ? 1 : 0;
+        $passwordHash = Hash::make($data['role'] . '123');
 
         DB::table('users')->where('api_id', $id)->update([
             'username' => $data['username'],
             'full_name' => $data['full_name'],
             'role' => $data['role'],
             'active' => $active,
+            'password' => $passwordHash,
         ]);
 
         return redirect()->route('dashboard')->with('status', 'User updated.');

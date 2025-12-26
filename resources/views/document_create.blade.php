@@ -6,33 +6,56 @@
     <div class="container">
         <div class="create-container">
             <h2>Add Document</h2><br>
-        
-            <form method="POST" action="{{ route('documents.store') }}" class="create-form">
+
+            <form method="POST" action="{{ route('documents.store') }}" class="create-form document" enctype="multipart/form-data">
                 @csrf
 
-                <label for="api_id">Document ID</label>
+                <div style="margin-bottom:5px;">
+                    <label for="api_id">Document ID</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "doc-000001"</span>
+                    </div>
+                </div>
                 <input type="text" id="api_id" name="api_id" required><br>
 
-                <label for="case_id">Case ID</label>
+                <div style="margin-bottom:5px;">
+                    <label for="case_id">Case ID</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "case-000001"</span>
+                    </div>
+                </div>
                 <input type="text" id="case_id" name="case_id" required><br>
 
-                <label for="filename">Filename</label>
-                <input type="text" id="filename" name="filename" required><br>
-
-                <label for="mime_type">MIME Type</label>
-                <input type="text" id="mime_type" name="mime_type" required><br>
+                <label for="document">Document File</label>
+                <input type="file" id="document" name="document" required><br>
 
                 <label for="category">Category</label>
-                <input type="text" id="category" name="category" required><br>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="coo">COO</option>
+                    <option value="invoice">Invoice</option>
+                    <option value="packing_list">Packing List</option>
+                    <option value="cmr">CMR</option>
+                    <option value="other">Other</option>
+                </select><br>
 
-                <label for="pages">Pages</label>
-                <input type="number" id="pages" name="pages" required><br>
-
-                <label for="uploaded_by">Uploaded By</label>
+                <div style="margin-bottom:5px;">
+                    <label for="uploaded_by">Uploaded By</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "user1"</span>
+                    </div>
+                </div>
                 <input type="text" id="uploaded_by" name="uploaded_by" required><br><br>
 
+                <input type="hidden" name="filename">
+                <input type="hidden" name="mime_type">
+                <input type="hidden" name="pages">
+
                 <button type="submit" class="save-btn">Save</button>
-            <form>
+            </form>
         </div>
     </div>
 </x-layout>

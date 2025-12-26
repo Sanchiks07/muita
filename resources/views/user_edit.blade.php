@@ -4,33 +4,54 @@
     </x-slot:title>
 
     <div class="container">
-        <h2>Edit {{ $user->username }}</h2>
+        <div class="create-container">
+            <h2>Edit {{ $user->full_name }} User</h2><br>
 
-        <form method="POST" action="{{ route('users.update', $user->api_id) }}" class="user-form">
-            @csrf
-            @method('PUT')
+            <form method="POST" action="{{ route('users.update', $user->id) }}" class="create-form user">
+                @csrf
+                @method('PUT')
 
-            <label for="username">Username</label>
-            <input type="text" name="username" value="{{ old('username', $user->username) }}" required>
+                <div style="margin-bottom:5px;">
+                    <label for="api_id">User ID</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "usr-000001"</span>
+                    </div>
+                </div>
+                <input type="text" id="api_id" name="api_id" value="{{ $user->api_id }}" required><br>
 
-            <label for="full_name">Full name</label>
-            <input type="text" name="full_name" value="{{ old('full_name', $user->full_name) }}" required>
+                <div style="margin-bottom:5px;">
+                    <label for="username">Username</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "user1"</span>
+                    </div>
+                </div>
+                <input type="text" id="username" name="username" value="{{ $user->username }}" required><br>
 
-            <label for="role">Role</label>
-            <select name="role" required>
-                <option value="inspector" {{ $user->role === 'inspector' ? 'selected' : '' }}>Inspector</option>
-                <option value="analyst" {{ $user->role === 'analyst' ? 'selected' : '' }}>Analyst</option>
-                <option value="broker" {{ $user->role === 'broker' ? 'selected' : '' }}>Broker</option>
-                <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
-            </select>
+                <label for="full_name">Full name</label>
+                <input type="text" id="full_name" name="full_name" value="{{ $user->full_name }}" required><br>
 
-            <label>
-                Active
-                <input type="checkbox" name="active" value="1" {{ $user->active ? 'checked' : '' }}>
-            </label>
+                <label for="role">Role</label>
+                <select id="role" name="role" required>
+                    <option value="" disabled selected>Select a role</option>
+                    <option value="inspector" {{ $user->role === 'inspector' ? 'selected' : '' }}>Inspector</option>
+                    <option value="analyst" {{ $user->role === 'analyst' ? 'selected' : '' }}>Analyst</option>
+                    <option value="broker" {{ $user->role === 'broker' ? 'selected' : '' }}>Broker</option>
+                    <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                </select><br>
 
-            <button type="submit">Save</button>
-            <a href="{{ route('dashboard') }}">Cancel</a>
-        </form>
+                <label for="active" class="checkbox">
+                    <input type="checkbox" id="active" name="active" value="1" {{ $user->active ? 'checked' : '' }}>
+                    Active
+                </label>
+                <br><br>
+
+                <div class="actions">
+                    <button type="submit" class="save-btn">Save</button>
+                    <a href="{{ route('dashboard') }}" class="cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
     </div>
 </x-layout>

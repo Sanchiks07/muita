@@ -4,90 +4,123 @@ namespace App\Http\Controllers;
 
 use App\Models\Documents;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DocumentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        if (! auth()->check() || auth()->user()->role !== 'broker') {
+        if (!auth()->check() || auth()->user()->role !== 'broker') {
             abort(403);
         }
 
         return view('document_create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        if (! auth()->check() || auth()->user()->role !== 'broker') {
+        if (!auth()->check() || auth()->user()->role !== 'broker') {
             abort(403);
         }
 
         $data = $request->validate([
-            'api_id' => ['required', 'string', 'max:255', 'unique:documents'],
+            'api_id' => ['required', 'string', 'max:255', 'unique:documents,api_id'],
             'case_id' => ['required', 'string', 'max:255'],
-            'filename' => ['required', 'string', 'max:255'],
-            'mime_type' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:255'],
-            'pages' => ['required', 'integer'],
-            'uploaded_by' => ['required', 'string', 'max:255']
+            'uploaded_by' => ['required', 'string', 'max:255'],
+            'document' => ['required', 'file']
         ]);
 
-        DB::table('users')->insert([
+        $file = $request->file('document');
+
+        $filename = $file->getClientOriginalName();
+        $mimeType = $file->getMimeType();
+        $pages = null;
+
+        $file->store('documents');
+
+        DB::table('documents')->insert([
             'api_id' => $data['api_id'],
             'case_id' => $data['case_id'],
-            'filename' => $data['filename'],
-            'mime_type' => $data['mime_type'],
+            'filename' => $filename,
+            'mime_type' => $mimeType,
             'category' => $data['category'],
-            'pages' => $data['pages'],
-            'uploaded_by' => $data['uploaded_by']
+            'pages' => $pages,
+            'uploaded_by' => $data['uploaded_by'],
         ]);
 
         return redirect()->route('dashboard')->with('status', 'File uploaded successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Documents $documents)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Documents $documents)
+    public function edit(string $id)
     {
-        //
+        if (!auth()->check() || auth()->user()->role !== 'broker') {
+            abort(403);
+        }
+
+        $document = DB::table('documents')->where('api_id', $id)->first();
+
+        if (!$document) {
+            return redirect()->route('dashboard')->with('error', 'Document not found.');
+        }
+
+        return view('document_edit', compact('document'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Documents $documents)
+    public function update(Request $request, string $id)
     {
-        //
+        if (!auth()->check() || auth()->user()->role !== 'broker') {
+            abort(403);
+        }
+
+        $data = $request->validate([
+            'case_id' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'max:255'],
+            'uploaded_by' => ['required', 'string', 'max:255'],
+            'document' => ['nullable', 'file']
+        ]);
+
+        $updateData = [
+            'case_id' => $data['case_id'],
+            'category' => $data['category'],
+            'uploaded_by' => $data['uploaded_by'],
+        ];
+
+        // Only update file info if a new file was uploaded
+        if ($request->hasFile('document')) {
+            $file = $request->file('document');
+            $filename = $file->getClientOriginalName();
+            $mimeType = $file->getMimeType();
+
+            $file->store('documents');
+
+            $updateData['filename'] = $filename;
+            $updateData['mime_type'] = $mimeType;
+        }
+
+        DB::table('documents')->where('api_id', $id)->update($updateData);
+
+        return redirect()->route('dashboard')->with('status', 'Document updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Documents $documents)
+    public function destroy(string $id)
     {
-        //
+        if (!auth()->check() || auth()->user()->role !== 'broker') {
+            abort(403);
+        }
+
+        DB::table('documents')->where('api_id', $id)->delete();
+
+        return redirect()->route('dashboard')->with('status', 'Document deleted.');
     }
 }

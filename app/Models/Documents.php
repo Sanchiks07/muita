@@ -14,4 +14,8 @@ class Documents extends Model {
         'pages',
         'uploaded_by',
     ];
+
+    protected $casts = [
+        'pages' => 'integer',
+    ];
 }

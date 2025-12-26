@@ -1,0 +1,70 @@
+<x-layout>
+    <x-slot:title>
+        Edit Document
+    </x-slot:title>
+
+    <div class="container">
+        <div class="create-container">
+            <h2>Edit Document</h2><br>
+
+            <form method="POST" action="{{ route('documents.update', $document->api_id) }}" class="create-form document" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
+
+                <div style="margin-bottom:5px;">
+                    <label for="api_id">Document ID</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "doc-000001"</span>
+                    </div>
+                </div>
+                <input type="text" id="api_id" name="api_id" value="{{ $document->api_id }}" required disabled><br>
+
+                <div style="margin-bottom:5px;">
+                    <label for="case_id">Case ID</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "case-000001"</span>
+                    </div>
+                </div>
+                <input type="text" id="case_id" name="case_id" value="{{ $document->case_id }}" required><br>
+
+                <div style="margin-bottom:5px;">
+                    <label for="document">Document File</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">Upload the same document file if you aren't changing it.</span>
+                    </div>
+                </div>
+                <input type="file" id="document" name="document"><br>
+
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="coo" {{ $document->category === 'coo' ? 'selected' : '' }}>COO</option>
+                    <option value="invoice" {{ $document->category === 'invoice' ? 'selected' : '' }}>Invoice</option>
+                    <option value="packing_list" {{ $document->category === 'packing_list' ? 'selected' : '' }}>Packing List</option>
+                    <option value="cmr" {{ $document->category === 'cmr' ? 'selected' : '' }}>CMR</option>
+                    <option value="other" {{ $document->category === 'other' ? 'selected' : '' }}>Other</option>
+                </select><br>
+
+                <div style="margin-bottom:5px;">
+                    <label for="uploaded_by">Uploaded By</label>
+                    <div class="tooltip">
+                        ⓘ
+                        <span class="tooltip-text">e.g. "user1"</span>
+                    </div>
+                </div>
+                <input type="text" id="uploaded_by" name="uploaded_by" value="{{ $document->uploaded_by }}" required><br><br>
+
+                <input type="hidden" name="filename">
+                <input type="hidden" name="mime_type">
+                <input type="hidden" name="pages">
+
+                <div class="actions">
+                    <button type="submit" class="save-btn">Save</button>
+                    <a href="{{ route('dashboard') }}" class="cancel-btn">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</x-layout>

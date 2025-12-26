@@ -71,6 +71,7 @@ body {
     border: solid 1px rgb(241, 171, 255);
     border-radius: 20px;
     box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
+    position: relative;
 }
 
 .login-form {
@@ -113,6 +114,12 @@ body {
     transition: 0.3s;
 }
 
+.login-mode-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
 /* ---------- DASHBOARD ---------- */
 .container {
     display: flex;
@@ -124,7 +131,6 @@ body {
     padding: 30px 0 25px;
 }
 
-/* admin */
 table, th, td {
     border-collapse: collapse;
     border: 1px solid black;
@@ -135,12 +141,13 @@ h1 {
     margin-bottom: 15px;
 }
 
+/* admin un broker */
 .create-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    min-height: 70vh;
     min-width: 18vw;
     padding: 35px 35px;
     border: solid 1px rgb(241, 171, 255);
@@ -171,11 +178,23 @@ h1 {
     border: 1px solid #ccc;
     background-color: white;
     cursor: pointer;
+}
+
+.user input, .user select {
     width: 100%;
 }
 
-/* ---------- BUTTONS ---------- */
+.document input, .document select, .document button {
+    width: 70%;
+}
 
+.checkbox {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+
+/* ---------- BUTTONS ---------- */
 .save-btn {
     padding: 5px 10px;
     border-radius: 5px;
@@ -205,7 +224,7 @@ h1 {
     transition: 0.3s;
 }
 
-.edit-btn {
+.edit-btn, .cancel-btn, .view-btn {
     padding: 5px 8px;
     border-radius: 5px;
     border: none;
@@ -217,7 +236,7 @@ h1 {
     background-color: #ececec;
 }
 
-.edit-btn:hover {
+.edit-btn:hover, .cancel-btn:hover, .view-btn:hover {
     background-color: #cfcfcf;
     transition: 0.3s;
 }
@@ -264,11 +283,24 @@ h1 {
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .mode-btn:hover {
     background-color: #cfcfcf;
     transition: 0.3s;
+}
+
+img {
+    width: 16px;
+    height: 16px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
 }
 
 /* ---------- PAGINATION ---------- */
@@ -434,7 +466,12 @@ h1 {
     color: #f0f0f0;
 }
 
-.dark-mode .edit-btn {
+.dark-mode .login-btn {
+    background-color: #333;
+    color: #f0f0f0;
+}
+
+.dark-mode .edit-btn, .dark-mode .cancel-btn, .dark-mode .view-btn {
     background-color: #333;
     color: #f0f0f0;
 }

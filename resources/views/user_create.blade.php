@@ -7,10 +7,10 @@
         <div class="create-container">
             <h2>Add New User</h2><br>
 
-            <form method="POST" action="{{ route('users.store') }}" class="create-form">
+            <form method="POST" action="{{ route('users.store') }}" class="create-form user">
                 @csrf
 
-                <div>
+                <div style="margin-bottom:5px;">
                     <label for="api_id">User ID</label>
                     <div class="tooltip">
                         ⓘ
@@ -19,7 +19,7 @@
                 </div>
                 <input type="text" id="api_id" name="api_id" required><br>
 
-                <div>
+                <div style="margin-bottom:5px;">
                     <label for="username">Username</label>
                     <div class="tooltip">
                         ⓘ
@@ -40,19 +40,11 @@
                     <option value="admin">Admin</option>
                 </select><br>
 
-                <label>
+                <label for="active" class="checkbox">
+                    <input type="checkbox" id="active" name="active" value="1">
                     Active
-                    <input type="checkbox" name="active" value="1">
-                </label><br>
-                
-                <div>
-                    <label for="password">Password</label>
-                    <div class="tooltip">
-                        ⓘ
-                        <span class="tooltip-text">Password must be "role"123</span>
-                    </div>
-                </div>
-                <input type="password" id="password" name="password" required><br><br>
+                </label>
+                <br><br>
 
                 <button type="submit" class="save-btn">Save</button>
             </form>

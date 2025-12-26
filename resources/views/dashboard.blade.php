@@ -13,7 +13,7 @@
                             <th>Case ID</th>
                             <th>Status</th>
                             <th>Priority</th>
-                            <th>Checkpoint</th>
+                            <th>Checkpoint ID</th>
                             <th>Orign → Destination</th>
                             <th>Declarant ID</th>
                             <th>Consignee ID</th>
@@ -30,14 +30,7 @@
                                 <td>{{ $case->origin_country }} → {{ $case->destination_country }}</td>
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
-                                <td>
-                                    <a href="{{ route('cases.edit', $case->api_id) }}" class="edit-btn">Edit</a>
-                                    <form method="POST" action="{{ route('cases.destroy', $case->api_id) }}" style="display:inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this case?')">Delete</button>
-                                    </form>
-                                </td>
+                                <td><a href="{{ route('cases.show', $case->api_id) }}" class="view-btn">View</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -56,7 +49,7 @@
                             <th>Case ID</th>
                             <th>Status</th>
                             <th>Priority</th>
-                            <th>Checkpoint</th>
+                            <th>Checkpoint ID</th>
                             <th>Orign → Destination</th>
                             <th>Risk Flags</th>
                             <th>Declarant ID</th>
@@ -87,14 +80,7 @@
                                 </td>
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
-                                <td>
-                                    <a href="{{ route('cases.edit', $case->api_id) }}" class="edit-btn">Edit</a>
-                                    <form method="POST" action="{{ route('cases.destroy', $case->api_id) }}" style="display:inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this case?')">Delete</button>
-                                    </form>
-                                </td>
+                                <td><a href="{{ route('cases.show', $case->api_id) }}" class="view-btn">View</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -117,6 +103,7 @@
                             <th>Category</th>
                             <th>Pages</th>
                             <th>Uploaded By</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,6 +116,14 @@
                                 <td>{{ $document->category }}</td>
                                 <td>{{ $document->pages }}</td>
                                 <td>{{ $document->uploaded_by }}</td>
+                                <td>
+                                    <a href="{{ route('documents.edit', $document->api_id) }}" class="edit-btn">Edit</a>
+                                    <form method="POST" action="{{ route('documents.destroy', $document->api_id) }}" style="display:inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-btn" onclick="return confirm('Delete this document?')">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
