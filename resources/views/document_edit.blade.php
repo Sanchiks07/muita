@@ -18,7 +18,7 @@
                         <span class="tooltip-text">e.g. "doc-000001"</span>
                     </div>
                 </div>
-                <input type="text" id="api_id" name="api_id" value="{{ $document->api_id }}" required disabled><br>
+                <input type="text" id="api_id" name="api_id" value="{{ $document->api_id }}" required><br>
 
                 <div style="margin-bottom:5px;">
                     <label for="case_id">Case ID</label>
@@ -47,6 +47,9 @@
                     <option value="other" {{ $document->category === 'other' ? 'selected' : '' }}>Other</option>
                 </select><br>
 
+                <label for="pages">Pages</label>
+                <input type="number" id="pages" name="pages" value="{{ $document->pages }}" min="1" required><br>
+
                 <div style="margin-bottom:5px;">
                     <label for="uploaded_by">Uploaded By</label>
                     <div class="tooltip">
@@ -55,10 +58,6 @@
                     </div>
                 </div>
                 <input type="text" id="uploaded_by" name="uploaded_by" value="{{ $document->uploaded_by }}" required><br><br>
-
-                <input type="hidden" name="filename">
-                <input type="hidden" name="mime_type">
-                <input type="hidden" name="pages">
 
                 <div class="actions">
                     <button type="submit" class="save-btn">Save</button>

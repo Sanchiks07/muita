@@ -33,14 +33,14 @@ class DocumentsController extends Controller
             'case_id' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:255'],
             'uploaded_by' => ['required', 'string', 'max:255'],
-            'document' => ['required', 'file']
+            'document' => ['required', 'file'],
+            'pages' => ['nullable', 'integer']
         ]);
 
         $file = $request->file('document');
 
         $filename = $file->getClientOriginalName();
         $mimeType = $file->getMimeType();
-        $pages = null;
 
         $file->store('documents');
 
@@ -50,7 +50,7 @@ class DocumentsController extends Controller
             'filename' => $filename,
             'mime_type' => $mimeType,
             'category' => $data['category'],
-            'pages' => $pages,
+            'pages' => $data['pages'],
             'uploaded_by' => $data['uploaded_by'],
         ]);
 
@@ -84,16 +84,20 @@ class DocumentsController extends Controller
         }
 
         $data = $request->validate([
+            'api_id' => ['required', 'string', 'max:255'],
             'case_id' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:255'],
             'uploaded_by' => ['required', 'string', 'max:255'],
-            'document' => ['nullable', 'file']
+            'document' => ['nullable', 'file'],
+            'pages' => ['nullable', 'integer']
         ]);
 
         $updateData = [
+            'api_id' => $data['api_id'],
             'case_id' => $data['case_id'],
             'category' => $data['category'],
             'uploaded_by' => $data['uploaded_by'],
+            'pages' => $data['pages'],
         ];
 
         // Only update file info if a new file was uploaded

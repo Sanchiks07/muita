@@ -41,6 +41,9 @@
                     <option value="other">Other</option>
                 </select><br>
 
+                <label for="pages">Pages</label>
+                <input type="number" id="pages" name="pages" min="1" required><br>
+
                 <div style="margin-bottom:5px;">
                     <label for="uploaded_by">Uploaded By</label>
                     <div class="tooltip">
@@ -49,10 +52,6 @@
                     </div>
                 </div>
                 <input type="text" id="uploaded_by" name="uploaded_by" required><br><br>
-
-                <input type="hidden" name="filename">
-                <input type="hidden" name="mime_type">
-                <input type="hidden" name="pages">
 
                 <button type="submit" class="save-btn">Save</button>
             </form>
