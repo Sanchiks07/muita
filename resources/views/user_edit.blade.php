@@ -4,6 +4,18 @@
     </x-slot:title>
 
     <div class="container">
+        <!-- error messages -->
+        @if ($errors->any())
+            <div class="error-messages">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- the user edit form -->
         <div class="create-container">
             <h2>Edit {{ $user->full_name }} User</h2><br>
 
@@ -11,23 +23,11 @@
                 @csrf
                 @method('PUT')
 
-                <div style="margin-bottom:5px;">
-                    <label for="api_id">User ID</label>
-                    <div class="tooltip">
-                        ⓘ
-                        <span class="tooltip-text">e.g. "usr-000001"</span>
-                    </div>
-                </div>
-                <input type="text" id="api_id" name="api_id" value="{{ $user->api_id }}" required><br>
+                <label for="api_id">User ID</label>
+                <input type="text" id="api_id" name="api_id" value="{{ $user->api_id }}" disabled><br>
 
-                <div style="margin-bottom:5px;">
-                    <label for="username">Username</label>
-                    <div class="tooltip">
-                        ⓘ
-                        <span class="tooltip-text">e.g. "user1"</span>
-                    </div>
-                </div>
-                <input type="text" id="username" name="username" value="{{ $user->username }}" required><br>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ $user->username }}" disabled><br>
 
                 <label for="full_name">Full name</label>
                 <input type="text" id="full_name" name="full_name" value="{{ $user->full_name }}" required><br>

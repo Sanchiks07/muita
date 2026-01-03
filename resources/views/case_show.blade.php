@@ -20,6 +20,7 @@
                     <th>Declarant ID</th>
                     <th>Consignee ID</th>
                     <th>Vehicle ID</th>
+                    <th>HS Code</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,6 +58,7 @@
                     <td>{{ $case->declarant_id }}</td>
                     <td>{{ $case->consignee_id }}</td>
                     <td>{{ $case->vehicle_id }}</td>
+                    <td>{{ $case->hs_code }}</td>
                 </tr>
             </tbody>
         </table>

@@ -111,7 +111,7 @@ body {
 
 .login-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .login-mode-btn {
@@ -268,7 +268,7 @@ h1 {
 
 .save-btn:hover, .register-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .cancel-btn {
@@ -285,7 +285,7 @@ h1 {
 
 .cancel-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .delete-btn {
@@ -299,10 +299,10 @@ h1 {
 
 .delete-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
-.edit-btn, .view-btn, .back-btn {
+.edit-btn, .view-btn, .back-btn, .risk-scan-btn {
     padding: 5px 8px;
     border-radius: 5px;
     border: none;
@@ -314,9 +314,9 @@ h1 {
     background-color: #ececec;
 }
 
-.edit-btn:hover, .view-btn:hover, .back-btn:hover {
+.edit-btn:hover, .view-btn:hover, .back-btn:hover, .risk-scan-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .logout-btn {
@@ -330,7 +330,7 @@ h1 {
 
 .logout-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .search-btn {
@@ -345,7 +345,7 @@ h1 {
 
 .search-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .searchbar {
@@ -368,7 +368,7 @@ h1 {
 
 .mode-btn:hover {
     background-color: #cfcfcf;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 img {
@@ -385,10 +385,9 @@ img {
 
 /* ---------- PAGINATION ---------- */
 .pagination {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 20px;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
 }
 
 .pagination ul {
@@ -396,42 +395,61 @@ img {
     padding: 0;
     margin: 0;
     display: flex;
-    gap: 6px;
+    gap: 4px;
 }
 
-.pagination a,
-.pagination span {
-    padding: 6px 10px;
+.pagination a, .pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
     font-size: 14px;
     text-decoration: none;
-    color: black;
+    color: #111;
+    border-radius: 6px;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.pagination .active span,
-.pagination .current {
-    font-weight: 600;
-    text-decoration: underline;
+.pagination a:hover {
+    background-color: #e6e6e6;
 }
 
-.pagination .disabled span {
-    opacity: 0.4;
+.pagination span[aria-current="page"] > span {
+    background: #e6e6e6;
+    cursor: default;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination a[rel="prev"], .pagination a[rel="next"] {
+    display: none !important;
+}
+
+.pagination span[aria-disabled="true"] {
+    display: none;
+}
+
+.pagination span.cursor-default {
     cursor: default;
 }
 
+.pagination .current, .pagination .active span {
+    background-color: #111827;
+    color: #fff;
+    font-weight: 600;
+}
+
 .pagination svg {
-    width: 0;
-    height: 0;
-    overflow: hidden;
     display: none;
 }
 
 .pagination > nav {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-    font-size: 14px;
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 /* ---------- TOOLTIP ---------- */
@@ -520,8 +538,8 @@ img {
 .risk-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    width: 100%;
+    gap: 60px;
+    width: 70%;
 }
 
 .risk-results {
@@ -529,15 +547,14 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 600px;
+    width: fit-content;
     height: fit-content;
-    padding: 14px;
-    margin-top: 20px;
+    padding: 14px 36px;
     border: solid 1px rgb(241, 171, 255);
     border-radius: 20px;
     box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
     grid-column: 1 / 2;
-    justify-self: end;
+    justify-self: center;
 }
 
 .risk-results h3 {
@@ -559,13 +576,12 @@ img {
 .risk-legend {
     width: fit-content;
     height: fit-content;
-    padding: 14px;
-    margin-top: 20px;
+    padding: 14px 36px;
     border: solid 1px rgb(241, 171, 255);
     border-radius: 20px;
     box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
     grid-column: 2 / 3;
-    justify-self: start;
+    justify-self: center;
 }
 
 .risk-legend ul {
@@ -584,13 +600,29 @@ img {
     padding-left: 0;
 }
 
+/* ---------- ERROR MESSAGES ---------- */
+.error-messages {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #f00;
+    background: #ffe5e5;
+    color: #900;
+    border-radius: 5px;
+}
+
 /* ---------- LIGHT and DARK MODE ---------- */
 .dark-mode {
     background-color: #1a1a1a;
     color: #f0f0f0;
 }
 
-.dark-mode input, .dark-mode select {
+.dark-mode .error-messages {
+    border: 1px solid #ff4d4d;
+    background: #660000;
+    color: #ffb3b3;
+}
+
+.dark-mode input, .dark-mode select, .dark-mode textarea {
     background-color: #333;
     color: #f0f0f0;
     border: 1px solid #555;
@@ -604,13 +636,27 @@ img {
     color: #f0f0f0;
 }
 
-.dark-mode .search-btn, .dark-mode .logout-btn, .dark-mode .login-btn,
+.pagination a:hover, .pagination span[aria-current="page"] > span {
+    background-color: #444;
+}
+
+.dark-mode .search-btn, .dark-mode .logout-btn, .dark-mode .login-btn, .dark-mode .back-btn,
 .dark-mode .edit-btn, .dark-mode .cancel-btn, .dark-mode .view-btn, .dark-mode .register-btn,
-.dark-mode .back-btn, .dark-mode .delete-btn, .dark-mode .save-btn, .dark-mode .mode-btn {
+.dark-mode .delete-btn, .dark-mode .save-btn, .dark-mode .mode-btn, .dark-mode .risk-scan-btn {
     background-color: #333;
     color: #f0f0f0;
 }
 
+.dark-mode .search-btn:hover, .dark-mode .logout-btn:hover, .dark-mode .login-btn:hover, .dark-mode .back-btn:hover,
+.dark-mode .edit-btn:hover, .dark-mode .cancel-btn:hover, .dark-mode .view-btn:hover, .dark-mode .register-btn:hover,
+.dark-mode .delete-btn:hover, .dark-mode .save-btn:hover, .dark-mode .mode-btn:hover, .dark-mode .risk-scan-btn:hover {
+    background-color: #555;
+}
+
 .dark-mode .navigation a {
     color: #f0f0f0;
+}
+
+.dark-mode .pagination a:hover {
+    background-color: #444;
 }

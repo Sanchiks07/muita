@@ -8,11 +8,17 @@ use Illuminate\Support\Facades\DB;
 
 class DocumentsController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         if (!auth()->check() || auth()->user()->role !== 'broker') {
@@ -22,6 +28,9 @@ class DocumentsController extends Controller
         return view('document_create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         if (!auth()->check() || auth()->user()->role !== 'broker') {
@@ -29,19 +38,17 @@ class DocumentsController extends Controller
         }
 
         $data = $request->validate([
-            'api_id' => ['required', 'string', 'max:255', 'unique:documents,api_id'],
-            'case_id' => ['required', 'string', 'max:255'],
+            'api_id' => ['required', 'string', 'max:255', 'min:10', 'unique:documents,api_id'],
+            'case_id' => ['required', 'string', 'max:255', 'min:11'],
             'category' => ['required', 'string', 'max:255'],
-            'uploaded_by' => ['required', 'string', 'max:255'],
-            'document' => ['required', 'file'],
-            'pages' => ['nullable', 'integer']
+            'uploaded_by' => ['required', 'string', 'max:255', 'min:5'],
+            'document' => ['required', 'file', 'mimes:pdf,jpg,png'], // added file type
+            'pages' => ['nullable', 'integer'],
         ]);
 
         $file = $request->file('document');
-
         $filename = $file->getClientOriginalName();
         $mimeType = $file->getMimeType();
-
         $file->store('documents');
 
         DB::table('documents')->insert([
@@ -57,11 +64,17 @@ class DocumentsController extends Controller
         return redirect()->route('dashboard')->with('status', 'File uploaded successfully');
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show(Documents $documents)
     {
         //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(string $id)
     {
         if (!auth()->check() || auth()->user()->role !== 'broker') {
@@ -77,6 +90,9 @@ class DocumentsController extends Controller
         return view('document_edit', compact('document'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id)
     {
         if (!auth()->check() || auth()->user()->role !== 'broker') {
@@ -84,32 +100,25 @@ class DocumentsController extends Controller
         }
 
         $data = $request->validate([
-            'api_id' => ['required', 'string', 'max:255'],
-            'case_id' => ['required', 'string', 'max:255'],
+            'case_id' => ['required', 'string', 'max:255', 'min:11'],
             'category' => ['required', 'string', 'max:255'],
-            'uploaded_by' => ['required', 'string', 'max:255'],
-            'document' => ['nullable', 'file'],
-            'pages' => ['nullable', 'integer']
+            'uploaded_by' => ['required', 'string', 'max:255', 'min:5'],
+            'document' => ['nullable', 'file', 'mimes:pdf,jpg,png'], // added file type
+            'pages' => ['nullable', 'integer'],
         ]);
 
         $updateData = [
-            'api_id' => $data['api_id'],
             'case_id' => $data['case_id'],
             'category' => $data['category'],
             'uploaded_by' => $data['uploaded_by'],
             'pages' => $data['pages'],
         ];
 
-        // Only update file info if a new file was uploaded
         if ($request->hasFile('document')) {
             $file = $request->file('document');
-            $filename = $file->getClientOriginalName();
-            $mimeType = $file->getMimeType();
-
+            $updateData['filename'] = $file->getClientOriginalName();
+            $updateData['mime_type'] = $file->getMimeType();
             $file->store('documents');
-
-            $updateData['filename'] = $filename;
-            $updateData['mime_type'] = $mimeType;
         }
 
         DB::table('documents')->where('api_id', $id)->update($updateData);
@@ -117,6 +126,9 @@ class DocumentsController extends Controller
         return redirect()->route('dashboard')->with('status', 'Document updated successfully.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
         if (!auth()->check() || auth()->user()->role !== 'broker') {

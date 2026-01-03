@@ -30,6 +30,8 @@ class CasesSeeder extends Seeder
                 'declarant_id' => $cases['declarant_id'],
                 'consignee_id' => $cases['consignee_id'],
                 'vehicle_id' => $cases['vehicle_id'],
+                // takes numeric part of id and makes it into 10 digit HS code
+                'hs_code' => str_pad(preg_replace('/\D/', '', $cases['id']), 10, '0', STR_PAD_LEFT),
             ]);
         }
     }

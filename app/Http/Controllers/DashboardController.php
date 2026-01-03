@@ -62,7 +62,7 @@ class DashboardController extends Controller
         
         else if (auth()->check() && (auth()->user()->role === 'inspector' || auth()->user()->role === 'analyst')) {
             $query = DB::table('cases')
-                ->select('api_id', 'external_ref', 'status', 'priority', 'arrival_ts', 'checkpoint_id', 'origin_country', 'destination_country', 'risk_flags', 'declarant_id', 'consignee_id', 'vehicle_id')
+                ->select('api_id', 'external_ref', 'status', 'priority', 'arrival_ts', 'checkpoint_id', 'origin_country', 'destination_country', 'risk_flags', 'declarant_id', 'consignee_id', 'vehicle_id', 'hs_code')
                 ->orderByRaw('CAST(api_id AS UNSIGNED)');
             
             if ($search) {
@@ -73,7 +73,9 @@ class DashboardController extends Controller
                       ->orWhere('origin_country', 'LIKE BINARY', "%$search%")
                       ->orWhere('destination_country', 'LIKE BINARY', "%$search%")
                       ->orWhere('declarant_id', 'LIKE BINARY', "%$search%")
-                      ->orWhere('consignee_id', 'LIKE BINARY', "%$search%");
+                      ->orWhere('consignee_id', 'LIKE BINARY', "%$search%")
+                      ->orWhere('vehicle_id', 'LIKE BINARY', "%$search%")
+                      ->orWhere('hs_code', 'LIKE BINARY', "%$search%");
             }
             
             $cases = $query->paginate(15);
@@ -160,6 +162,6 @@ class DashboardController extends Controller
 
         $lastRiskScan = Cache::get('last_risk_scan');
 
-        return view('riskScan', compact('lastRiskScan', 'riskScanResults'));
+        return view('risk_scan', compact('lastRiskScan', 'riskScanResults'));
     }
 }

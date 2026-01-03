@@ -4,6 +4,16 @@
     </x-slot:title>
 
     <div class="container">
+        @if ($errors->any())
+            <div class="error-messages">
+                <ul style="list-style: none;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="login">
             <div class="login-mode-btn">
                 <button onclick="lightAndDark()" class="mode-btn"><img src="/moon.png" alt="Moon Icon">Dark Mode</button>
@@ -69,4 +79,3 @@
         });
     </script>
 </x-layout>
-

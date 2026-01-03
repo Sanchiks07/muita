@@ -38,22 +38,38 @@ class CasesController extends Controller
         }
 
         $data = $request->validate([
-            'api_id' => ['required', 'string', 'max:255', 'unique:cases,api_id'],
-            'external_ref' => ['required', 'string', 'max:255'],
+            'api_id' => ['required', 'string', 'max:255', 'min:11', 'unique:cases,api_id'],
+            'external_ref' => ['required', 'string', 'max:255', 'min:14'],
             'status' => ['required', 'string', 'max:255'],
             'priority' => ['required', 'string', 'max:255'],
-            'arrival_ts' => ['required', 'date_format:Y-m-d\TH:i'],
-            'checkpoint_id' => ['required', 'string', 'max:255'],
-            'origin_country' => ['required', 'string', 'max:255'],
-            'destination_country' => ['required', 'string', 'max:255'],
+            'arrival_ts' => ['required', 'string'],
+            'checkpoint_id' => ['required', 'string', 'max:255', 'min:9'],
+            'origin_country' => ['required', 'string', 'size:2'], // ISO code
+            'destination_country' => ['required', 'string', 'size:2'], // ISO code
             'risk_flags' => ['nullable', 'string', 'max:1000'],
-            'declarant_id' => ['required', 'string', 'max:255'],
-            'consignee_id' => ['required', 'string', 'max:255'],
-            'vehicle_id' => ['required', 'string', 'max:255'],
+            'declarant_id' => ['required', 'string', 'max:255', 'min:10'],
+            'consignee_id' => ['required', 'string', 'max:255', 'min:10'],
+            'vehicle_id' => ['required', 'string', 'max:255', 'min:10'],
         ]);
 
-        // Convert datetime-local format to database format
-        $arrivalTs = str_replace('T', ' ', $data['arrival_ts']);
+        // Convert dd/mm/yyyy HH:MM to Y-m-d\TH:i (UTC)
+        $arrival = \DateTime::createFromFormat('Y-m-d\TH:i', $data['arrival_ts'], new \DateTimeZone('Europe/Riga'));
+        if (!$arrival) {
+            return back()->withErrors(['arrival_ts' => 'Invalid arrival date format.'])->withInput();
+        }
+
+        // Check if arrival date is in the past
+        $now = new \DateTime('now', new \DateTimeZone('Europe/Riga'));
+        if ($arrival < $now) {
+            return back()->withErrors(['arrival_ts' => 'Arrival date cannot be in the past.'])->withInput();
+        }
+
+        // Convert to UTC ISO 8601 format
+        $arrival->setTimezone(new \DateTimeZone('UTC'));
+        $arrivalTs = $arrival->format('Y-m-d\TH:i:s\Z');
+
+        // automaticly generates the HS code
+        $hsCode = str_pad(preg_replace('/\D/', '', $data['api_id']), 10, '0', STR_PAD_LEFT);
 
         DB::table('cases')->insert([
             'api_id' => $data['api_id'],
@@ -68,6 +84,7 @@ class CasesController extends Controller
             'declarant_id' => $data['declarant_id'],
             'consignee_id' => $data['consignee_id'],
             'vehicle_id' => $data['vehicle_id'],
+            'hs_code' => $hsCode,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -121,20 +138,34 @@ class CasesController extends Controller
         }
 
         $data = $request->validate([
-            'external_ref' => ['required', 'string', 'max:255'],
+            'external_ref' => ['required', 'string', 'max:255', 'min:14'],
             'status' => ['required', 'string', 'max:255'],
             'priority' => ['required', 'string', 'max:255'],
-            'arrival_ts' => ['required', 'date_format:Y-m-d\TH:i'],
-            'checkpoint_id' => ['required', 'string', 'max:255'],
-            'origin_country' => ['required', 'string', 'max:255'],
-            'destination_country' => ['required', 'string', 'max:255'],
+            'arrival_ts' => ['required', 'string'],
+            'checkpoint_id' => ['required', 'string', 'max:255', 'min:9'],
+            'origin_country' => ['required', 'string', 'size:2'], // ISO code
+            'destination_country' => ['required', 'string', 'size:2'], // ISO code
             'risk_flags' => ['nullable', 'string', 'max:1000'],
-            'declarant_id' => ['required', 'string', 'max:255'],
-            'consignee_id' => ['required', 'string', 'max:255']
+            'declarant_id' => ['required', 'string', 'max:255', 'min:10'],
+            'consignee_id' => ['required', 'string', 'max:255', 'min:10'],
+            'vehicle_id' => ['required', 'string', 'max:255', 'min:10'],
         ]);
 
-        // Convert datetime-local format to database format
-        $arrivalTs = str_replace('T', ' ', $data['arrival_ts']);
+        // Convert dd/mm/yyyy HH:MM to Y-m-d\TH:i:s\Z (UTC)
+        $arrival = \DateTime::createFromFormat('d/m/Y H:i', $data['arrival_ts'], new \DateTimeZone('Europe/Riga'));
+        if (!$arrival) {
+            return back()->withErrors(['arrival_ts' => 'Invalid arrival date format.'])->withInput();
+        }
+
+        // Check if arrival date is in the past
+        $now = new \DateTime('now', new \DateTimeZone('Europe/Riga'));
+        if ($arrival < $now) {
+            return back()->withErrors(['arrival_ts' => 'Arrival date cannot be in the past.'])->withInput();
+        }
+
+        // Convert to UTC ISO 8601 format
+        $arrival->setTimezone(new \DateTimeZone('UTC'));
+        $arrivalTs = $arrival->format('Y-m-d\TH:i:s\Z');
 
         DB::table('cases')->where('api_id', $id)->update([
             'external_ref' => $data['external_ref'],
@@ -146,7 +177,8 @@ class CasesController extends Controller
             'destination_country' => $data['destination_country'],
             'risk_flags' => $data['risk_flags'] ?? null,
             'declarant_id' => $data['declarant_id'],
-            'consignee_id' => $data['consignee_id']
+            'consignee_id' => $data['consignee_id'],
+            'vehicle_id' => $data['vehicle_id'],
         ]);
 
         return redirect()->route('dashboard')->with('status', 'Case updated.');

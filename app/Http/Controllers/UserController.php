@@ -38,8 +38,8 @@ class UserController extends Controller
         }
 
         $data = $request->validate([
-            'api_id' => ['required', 'string', 'max:255', 'unique:users'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'api_id' => ['required', 'string', 'max:255', 'min:10', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'min:5', 'unique:users'],
             'full_name' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'in:inspector,analyst,broker,admin'],
             'active' => ['nullable'],
@@ -96,7 +96,6 @@ class UserController extends Controller
         }
 
         $data = $request->validate([
-            'username' => ['required', 'string', 'max:255'],
             'full_name' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'in:inspector,analyst,broker,admin'],
             'active' => ['nullable'],
@@ -106,7 +105,6 @@ class UserController extends Controller
         $passwordHash = Hash::make($data['role'] . '123');
 
         DB::table('users')->where('api_id', $id)->update([
-            'username' => $data['username'],
             'full_name' => $data['full_name'],
             'role' => $data['role'],
             'active' => $active,

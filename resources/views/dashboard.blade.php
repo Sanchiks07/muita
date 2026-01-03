@@ -17,6 +17,8 @@
                             <th>Orign → Destination</th>
                             <th>Declarant ID</th>
                             <th>Consignee ID</th>
+                            <th>Vehicle ID</th>
+                            <th>HS Code</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -30,6 +32,8 @@
                                 <td>{{ $case->origin_country }} → {{ $case->destination_country }}</td>
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
+                                <td>{{ $case->vehicle_id }}</td>
+                                <td>{{ $case->hs_code }}</td>
                                 <td><a href="{{ route('cases.show', $case->api_id) }}" class="view-btn">View</a></td>
                             </tr>
                         @endforeach
@@ -54,6 +58,8 @@
                             <th>Risk Flags</th>
                             <th>Declarant ID</th>
                             <th>Consignee ID</th>
+                            <th>Vehicle ID</th>
+                            <th>HS Code</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -80,7 +86,9 @@
                                 </td>
                                 <td>{{ $case->declarant_id }}</td>
                                 <td>{{ $case->consignee_id }}</td>
-                                <td><a href="{{ route('cases.show', $case->api_id) }}" class="view-btn">View</a></td>
+                                <td>{{ $case->vehicle_id }}</td>
+                                <td>{{ $case->hs_code }}</td>
+                                <td style="text-align:center"><a href="{{ route('cases.show', $case->api_id) }}" class="view-btn">View</a></td>
                             </tr>
                         @endforeach
                     </tbody>

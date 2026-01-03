@@ -4,6 +4,18 @@
     </x-slot:title>
 
     <div class="container">
+        <!-- error messages -->
+        @if ($errors->any())
+            <div class="error-messages">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- the document edit form -->
         <div class="create-container">
             <h2>Edit Document</h2><br>
 
@@ -11,14 +23,8 @@
                 @method('PUT')
                 @csrf
 
-                <div style="margin-bottom:5px;">
-                    <label for="api_id">Document ID</label>
-                    <div class="tooltip">
-                        ⓘ
-                        <span class="tooltip-text">e.g. "doc-000001"</span>
-                    </div>
-                </div>
-                <input type="text" id="api_id" name="api_id" value="{{ $document->api_id }}" required><br>
+                <label for="api_id">Document ID</label>
+                <input type="text" id="api_id" name="api_id" value="{{ $document->api_id }}" disabled><br>
 
                 <div style="margin-bottom:5px;">
                     <label for="case_id">Case ID</label>

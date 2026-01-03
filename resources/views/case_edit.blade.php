@@ -4,6 +4,18 @@
     </x-slot:title>
 
     <div class="container">
+        <!-- error messages -->
+        @if ($errors->any())
+            <div class="error-messages">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- the case edit -->
         <div class="create-container">
             <h2>Edit {{ $case->api_id }}</h2><br>
 
@@ -14,20 +26,14 @@
                 <div class="input-grid">
                     <div class="input-group-1">
                         <div class="input-flex">
-                            <div style="margin-bottom:5px;">
-                                <label for="api_id">Case ID</label>
-                                <div class="tooltip">
-                                    ⓘ
-                                    <span class="tooltip-text">e.g. "case-000001"</span>
-                                </div>
-                            </div>
-                            <input type="text" id="api_id" name="api_id" value="{{ $case->api_id }}" required disabled><br>
+                            <label for="api_id">Case ID</label>
+                            <input type="text" id="api_id" name="api_id" value="{{ $case->api_id }}" disabled><br>
 
                             <div style="margin-bottom:5px;">
                                 <label for="external_ref">External Reference</label>
                                 <div class="tooltip">
                                     ⓘ
-                                    <span class="tooltip-text">External reference number</span>
+                                    <span class="tooltip-text">External reference number.<br>e.g. "CM-2025-000001"</span>
                                 </div>
                             </div>
                             <input type="text" id="external_ref" name="external_ref" value="{{ $case->external_ref }}" required><br>
@@ -72,7 +78,7 @@
                                 <label for="origin_country">Origin Country</label>
                                 <div class="tooltip">
                                     ⓘ
-                                    <span class="tooltip-text">ISO alpha-2 code<br>e.g. LV, US</span>
+                                    <span class="tooltip-text">ISO alpha-2 code.<br>e.g. LV, US</span>
                                 </div>
                             </div>
                             <input type="text" id="origin_country" name="origin_country" value="{{ $case->origin_country }}" required><br>
@@ -81,7 +87,7 @@
                                 <label for="destination_country">Destination Country</label>
                                 <div class="tooltip">
                                     ⓘ
-                                    <span class="tooltip-text">ISO alpha-2 code<br>e.g. LV, US</span>
+                                    <span class="tooltip-text">ISO alpha-2 code.<br>e.g. LV, US</span>
                                 </div>
                             </div>
                             <input type="text" id="destination_country" name="destination_country" value="{{ $case->destination_country }}" required>

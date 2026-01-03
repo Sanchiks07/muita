@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('consignee_id')->references('api_id')->on('parties');
             $table->string('vehicle_id');
             $table->foreign('vehicle_id')->references('api_id')->on('vehicles');
+            $table->string('hs_code', 10);
             $table->timestamps();
         });
     }
