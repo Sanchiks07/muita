@@ -3,6 +3,7 @@
         @if(auth()->user()->role == 'inspector' || auth()->user()->role == 'analyst')
             <ul>
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('risk.scan') }}">Risk Scan</a></li>
                 <li><a href="{{ route('cases.create') }}">Case Register</a></li>
             </ul>
         @endif
@@ -17,6 +18,7 @@
         @if(auth()->user()->role == 'admin')
             <ul>
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('risk.scan') }}">Risk Scan</a></li>
                 <li><a href="{{ route('users.create') }}">Add New User</a></li>
             </ul>
         @endif

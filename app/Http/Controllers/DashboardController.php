@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
+use App\Services\CaseRiskService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -77,7 +79,19 @@ class DashboardController extends Controller
             $cases = $query->paginate(15);
         }
 
-        return view('dashboard', compact('users', 'documents', 'cases'));
+        // Optional admin-triggered full risk scan: add ?run_risk_scan=1 to URL
+        $riskScanResults = null;
+        if (auth()->check() && in_array(auth()->user()->role, ['admin','inspector','analyst']) && request()->query('run_risk_scan') == '1') {
+            $svc = new CaseRiskService();
+            $riskScanResults = $svc->scanAll(30, auth()->user()->username);
+            // store last scan globally in cache so other users can see popup
+            Cache::put('last_risk_scan', $riskScanResults, now()->addHours(6));
+        }
+
+        // expose last run scan to the view for popup display to inspectors/analysts/admin
+        $lastRiskScan = Cache::get('last_risk_scan');
+
+        return view('dashboard', compact('users', 'documents', 'cases', 'riskScanResults', 'lastRiskScan'));
     }
 
     /**
@@ -126,5 +140,26 @@ class DashboardController extends Controller
     public function destroy(Dashboard $dashboard)
     {
         //
+    }
+
+    /**
+     * Show the dedicated risk scan page.
+     */
+    public function riskScan(Request $request)
+    {
+        if (!auth()->check() || !in_array(auth()->user()->role, ['admin','inspector','analyst'])) {
+            abort(403);
+        }
+
+        $riskScanResults = null;
+        if ($request->query('run_risk_scan') == '1') {
+            $svc = new CaseRiskService();
+            $riskScanResults = $svc->scanAll(30, auth()->user()->username);
+            Cache::put('last_risk_scan', $riskScanResults, now()->addHours(6));
+        }
+
+        $lastRiskScan = Cache::get('last_risk_scan');
+
+        return view('riskScan', compact('lastRiskScan', 'riskScanResults'));
     }
 }

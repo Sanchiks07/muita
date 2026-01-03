@@ -37,4 +37,6 @@ Route::get('/cases/{id}/edit', [CasesController::class, 'edit'])->name('cases.ed
 Route::put('/cases/{id}', [CasesController::class, 'update'])->name('cases.update')->middleware('auth');
 Route::delete('/cases/{id}', [CasesController::class, 'destroy'])->name('cases.destroy')->middleware('auth');
 
+// risk scan
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/risk-scan', [DashboardController::class, 'riskScan'])->name('risk.scan')->middleware('auth');

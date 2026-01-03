@@ -516,6 +516,74 @@ img {
     opacity: 1;
 }
 
+/* ---------- RISK SCAN ---------- */
+.risk-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    width: 100%;
+}
+
+.risk-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    height: fit-content;
+    padding: 14px;
+    margin-top: 20px;
+    border: solid 1px rgb(241, 171, 255);
+    border-radius: 20px;
+    box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
+    grid-column: 1 / 2;
+    justify-self: end;
+}
+
+.risk-results h3 {
+    margin-bottom: 8px;
+}
+
+.risk-results p {
+    margin: 6px 0;
+}
+
+.risk-results ul {
+    list-style-type: none;
+}
+
+.risk-results li {
+    margin-top: 6px;
+}
+
+.risk-legend {
+    width: fit-content;
+    height: fit-content;
+    padding: 14px;
+    margin-top: 20px;
+    border: solid 1px rgb(241, 171, 255);
+    border-radius: 20px;
+    box-shadow: 8px 8px 6px rgba(129, 117, 117, 0.6);
+    grid-column: 2 / 3;
+    justify-self: start;
+}
+
+.risk-legend ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.top-risk-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.top-risk-columns ul {
+    list-style: none;
+    padding-left: 0;
+}
+
 /* ---------- LIGHT and DARK MODE ---------- */
 .dark-mode {
     background-color: #1a1a1a;

@@ -42,7 +42,7 @@
                 </select><br>
 
                 <label for="pages">Pages</label>
-                <input type="number" id="pages" name="pages" min="1" required><br>
+                <input type="number" id="pages" name="pages" min="0" required><br>
 
                 <div style="margin-bottom:5px;">
                     <label for="uploaded_by">Uploaded By</label>

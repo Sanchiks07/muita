@@ -45,17 +45,16 @@
                             <label for="priority">Priority</label>
                             <select id="priority" name="priority" required>
                                 <option value="" disabled selected>Select the priority</option>
+                                <option value="normal">Normal</option>
                                 <option value="low">Low</option>
-                                <option value="medium">Medium</option>
                                 <option value="high">High</option>
-                                <option value="critical">Critical</option>
                             </select><br>
 
                             <div style="margin-bottom:5px;">
                                 <label for="arrival_ts">Arrival Date & Time</label>
                                 <div class="tooltip">
                                     ⓘ
-                                    <span class="tooltip-text">e.g. "2025-11-18 10:30"</span>
+                                    <span class="tooltip-text">e.g. "20-10-2025 23:15"</span>
                                 </div>
                             </div>
                             <input type="datetime-local" id="arrival_ts" name="arrival_ts" required><br>

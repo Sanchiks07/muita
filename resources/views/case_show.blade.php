@@ -63,7 +63,12 @@
 
         <br><br>
         <div style="display:flex; gap:10px;">
-            <a href="{{ route('cases.edit', $case->api_id) }}" class="edit-btn">Edit Case</a>
+            <a href="{{ route('cases.edit', $case->api_id) }}" class="edit-btn">Edit</a>
+            <form method="POST" action="{{ route('cases.destroy', $case->api_id) }}" style="display:inline">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this case?');">Delete</button>
+            </form>
             <a href="{{ route('dashboard') }}" class="back-btn">Back to Dashboard</a>
         </div>
     </div>
