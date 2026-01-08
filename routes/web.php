@@ -45,7 +45,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/risk-scan', [DashboardController::class, 'riskScan'])->name('risk.scan')->middleware('auth');
 
 // inspections crud routes - inspector only
-Route::get('/inspections', [InspectionsController::class, 'index'])->name('inspections')->middleware('auth');
+Route::get('/inspections', [InspectionsController::class, 'index'])->name('inspections.index')->middleware('auth');
 Route::get('/inspection/create', [InspectionsController::class, 'create'])->name('inspections.create')->middleware('auth');
 Route::post('/inspections', [InspectionsController::class, 'store'])->name('inspections.store')->middleware('auth');
 Route::get('/inspections/{id}', [InspectionsController::class, 'show'])->name('inspections.show')->middleware('auth');

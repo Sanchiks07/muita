@@ -3,7 +3,7 @@
         @if(auth()->user()->role == 'inspector')
             <ul>
                 <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ route('inspections') }}">Inspections</a></li>
+                <li><a href="{{ route('inspections.index') }}">Inspections</a></li>
                 <li><a href="{{ route('cases.create') }}">Case Register</a></li>
                 <li><a href="{{ route('inspections.create') }}">Create Inspection</a></li>
             </ul>

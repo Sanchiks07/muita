@@ -35,7 +35,7 @@ class InspectionsController extends Controller
             $inspections = $query->paginate(15);
         }
 
-        return view('inspections', compact('inspections'));
+        return view('inspections.index', compact('inspections'));
     }
 
     /**
@@ -102,7 +102,7 @@ class InspectionsController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('inspections')->with('status', 'Inspection created successfully.');
+        return redirect()->route('inspections.index')->with('status', 'Inspection created successfully.');
     }
 
     /**
@@ -117,7 +117,7 @@ class InspectionsController extends Controller
         $inspection = DB::table('inspections')->where('api_id', $id)->first();
 
         if (!$inspection) {
-            return redirect()->route('inspections')->with('error', 'Inspection not found.');
+            return redirect()->route('inspections.index')->with('error', 'Inspection not found.');
         }
 
         return view('inspections.show', compact('inspection'));
@@ -135,7 +135,7 @@ class InspectionsController extends Controller
         $inspection = DB::table('inspections')->where('api_id', $id)->first();
 
         if (!$inspection) {
-            return redirect()->route('inspections')->with('error', 'Inspection not found.');
+            return redirect()->route('inspections.index')->with('error', 'Inspection not found.');
         }
 
         return view('inspections.edit', compact('inspection'));
@@ -199,7 +199,7 @@ class InspectionsController extends Controller
 
         DB::table('inspections')->where('api_id', $id)->delete();
 
-        return redirect()->route('inspections')->with('status', 'Inspection deleted.');
+        return redirect()->route('inspections.index')->with('status', 'Inspection deleted.');
     }
 
     public function updateDecision(Request $request, $id)

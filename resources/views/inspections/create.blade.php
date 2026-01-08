@@ -100,7 +100,7 @@
 
                 <div class="actions">
                     <button type="submit" class="save-btn">Save</button>
-                    <a href="{{ route('inspections') }}" class="cancel-btn">Cancel</a>
+                    <a href="{{ route('inspections.index') }}" class="cancel-btn">Cancel</a>
                 </div>
             </form>
         </div>

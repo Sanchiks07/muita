@@ -65,7 +65,7 @@
                     @csrf
                     <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this inspection?');">Delete</button>
                 </form>
-                <a href="{{ route('inspections') }}" class="back-btn">Back to Inspections</a>
+                <a href="{{ route('inspections.index') }}" class="back-btn">Back to Inspections</a>
             </div>
         </div>
 
