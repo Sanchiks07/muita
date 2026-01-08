@@ -53,5 +53,4 @@ Route::get('/inspections/{id}/edit', [InspectionsController::class, 'edit'])->na
 Route::put('/inspections/{id}', [InspectionsController::class, 'update'])->name('inspections.update')->middleware('auth');
 Route::delete('/inspections/{id}', [InspectionsController::class, 'destroy'])->name('inspections.destroy')->middleware('auth');
 // update route for inspection decision and explanation
-Route::put('/inspections/{id}/decision', [InspectionsController::class, 'updateDecision'])
-    ->name('inspections.updateDecision');
+Route::put('/inspections/{id}/decision', [InspectionsController::class, 'updateDecision'])->name('inspections.updateDecision');
