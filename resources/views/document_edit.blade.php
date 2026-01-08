@@ -24,7 +24,7 @@
                 @csrf
 
                 <label for="api_id">Document ID</label>
-                <input type="text" id="api_id" name="api_id" value="{{ $document->api_id }}" disabled><br>
+                <input type="text" id="api_id" name="api_id" value="{{ $document->api_id }}" style="color:#ccc;" disabled><br>
 
                 <div style="margin-bottom:5px;">
                     <label for="case_id">Case ID</label>

@@ -24,10 +24,10 @@
                 @method('PUT')
 
                 <label for="api_id">User ID</label>
-                <input type="text" id="api_id" name="api_id" value="{{ $user->api_id }}" disabled><br>
+                <input type="text" id="api_id" name="api_id" value="{{ $user->api_id }}" style="color:#ccc;" disabled><br>
 
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" value="{{ $user->username }}" disabled><br>
+                <input type="text" id="username" name="username" value="{{ $user->username }}" style="color:#ccc;" disabled><br>
 
                 <label for="full_name">Full name</label>
                 <input type="text" id="full_name" name="full_name" value="{{ $user->full_name }}" required><br>

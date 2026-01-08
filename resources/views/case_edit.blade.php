@@ -27,7 +27,7 @@
                     <div class="input-group-1">
                         <div class="input-flex">
                             <label for="api_id">Case ID</label>
-                            <input type="text" id="api_id" name="api_id" value="{{ $case->api_id }}" disabled><br>
+                            <input type="text" id="api_id" name="api_id" value="{{ $case->api_id }}" style="color:#ccc;" disabled><br>
 
                             <div style="margin-bottom:5px;">
                                 <label for="external_ref">External Reference</label>
@@ -56,13 +56,7 @@
                                 <option value="critical" {{ $case->priority === 'critical' ? 'selected' : '' }}>Critical</option>
                             </select><br>
 
-                            <div style="margin-bottom:5px;">
-                                <label for="arrival_ts">Arrival Date & Time</label>
-                                <div class="tooltip">
-                                    ⓘ
-                                    <span class="tooltip-text">e.g. "2025-11-18T10:30"</span>
-                                </div>
-                            </div>
+                            <label for="arrival_ts">Arrival Date & Time</label>
                             <input type="datetime-local" id="arrival_ts" name="arrival_ts" value="{{ str_replace(' ', 'T', substr($case->arrival_ts, 0, 16)) }}" required><br>
 
                             <div style="margin-bottom:5px;">

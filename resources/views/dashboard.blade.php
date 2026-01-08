@@ -34,7 +34,7 @@
                                 <td>{{ $case->consignee_id }}</td>
                                 <td>{{ $case->vehicle_id }}</td>
                                 <td>{{ $case->hs_code }}</td>
-                                <td><a href="{{ route('cases.show', $case->api_id) }}" class="view-btn">View</a></td>
+                                <td style="text-align:center"><a href="{{ route('cases.show', $case->api_id) }}" class="view-btn">View</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -124,7 +124,7 @@
                                 <td>{{ $document->category }}</td>
                                 <td>{{ $document->pages }}</td>
                                 <td>{{ $document->uploaded_by }}</td>
-                                <td>
+                                <td style="text-align:center">
                                     <a href="{{ route('documents.edit', $document->api_id) }}" class="edit-btn">Edit</a>
                                     <form method="POST" action="{{ route('documents.destroy', $document->api_id) }}" style="display:inline">
                                         @csrf
@@ -163,7 +163,7 @@
                                 <td>{{ $user->full_name }}</td>
                                 <td>{{ $user->role }}</td>
                                 <td>{{ $user->active ? 'True' : 'False' }}</td>
-                                <td>
+                                <td style="text-align:center">
                                     <a href="{{ route('users.edit', $user->api_id) }}" class="edit-btn">Edit</a>
                                     <form method="POST" action="{{ route('users.destroy', $user->api_id) }}" style="display:inline">
                                         @csrf

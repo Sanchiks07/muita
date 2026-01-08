@@ -69,10 +69,6 @@
                             <strong>Historical origin risk:</strong> if >20% of past cases from the same origin had risk flags → +1 point
                         </li>
                     </ul>
-
-                    <p style="margin-top:8px; font-size:0.85em; opacity:0.7;">
-                        Total risk score equals the number of triggered risk conditions.
-                    </p>
                 </div>
 
                 @if(auth()->check() && in_array(auth()->user()->role, ['admin','inspector','analyst']))

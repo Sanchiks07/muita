@@ -12,7 +12,7 @@ class InspectionsController extends Controller
      */
     public function index()
     {
-        //
+        return view('inspections');
     }
 
     /**

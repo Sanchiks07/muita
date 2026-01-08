@@ -62,13 +62,7 @@
                                 <option value="high" {{ old('priority') === 'high' ? 'selected' : '' }}>High</option>
                             </select><br>
 
-                            <div style="margin-bottom:5px;">
-                                <label for="arrival_ts">Arrival Date & Time</label>
-                                <div class="tooltip">
-                                    ⓘ
-                                    <span class="tooltip-text">e.g. "20-10-2025 23:15"</span>
-                                </div>
-                            </div>
+                            <label for="arrival_ts">Arrival Date & Time</label>
                             <input type="datetime-local" id="arrival_ts" name="arrival_ts" value="{{ old('arrival_ts') }}" required><br>
 
                             <div style="margin-bottom:5px;">

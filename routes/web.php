@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\CasesController;
+use App\Http\Controllers\InspectionsController;
 use App\Http\Middleware;
 
 require __DIR__.'/auth.php';
@@ -38,6 +39,9 @@ Route::get('/cases/{id}/edit', [CasesController::class, 'edit'])->name('cases.ed
 Route::put('/cases/{id}', [CasesController::class, 'update'])->name('cases.update')->middleware('auth');
 Route::delete('/cases/{id}', [CasesController::class, 'destroy'])->name('cases.destroy')->middleware('auth');
 
-// risk scan
+// risk scan - analyst only
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/risk-scan', [DashboardController::class, 'riskScan'])->name('risk.scan')->middleware('auth');
+
+// inspections - inspector only
+Route::get('/inspections', [InspectionsController::class, 'index'])->name('inspections')->middleware('auth');
