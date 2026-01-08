@@ -14,8 +14,7 @@ use App\Http\Middleware;
 require __DIR__.'/auth.php';
 
 Route::get('/', function () { return view('auth.login'); })->name('login')->middleware('guest');
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth');
 
 // user crud routes - admin only

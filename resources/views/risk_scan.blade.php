@@ -51,16 +51,16 @@
                             <strong>Risk flags:</strong> if any risk flags exist (one or more) → +1 point
                         </li>
                         <li>
-                            <strong>No documents uploaded:</strong> → +1 point
+                            <strong>No documents uploaded:</strong> +1 point
                         </li>
                         <li>
-                            <strong>Vehicle not found:</strong> → +1 point
+                            <strong>Vehicle not found:</strong> +1 point
                         </li>
                         <li>
-                            <strong>Vehicle country differs from origin:</strong> → +1 point
+                            <strong>Vehicle country differs from origin:</strong> +1 point
                         </li>
                         <li>
-                            <strong>Night arrival (00:00-04:59):</strong> → +1 point
+                            <strong>Night arrival (00:00-04:59):</strong> +1 point
                         </li>
                         <li>
                             <strong>Status:</strong> new / screening / in inspection / on hold → +1 point
