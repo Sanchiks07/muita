@@ -83,7 +83,7 @@ class DashboardController extends Controller
 
         // Optional admin-triggered full risk scan: add ?run_risk_scan=1 to URL
         $riskScanResults = null;
-        if (auth()->check() && in_array(auth()->user()->role, ['admin','inspector','analyst']) && request()->query('run_risk_scan') == '1') {
+        if (auth()->check() && in_array(auth()->user()->role, ['analyst']) && request()->query('run_risk_scan') == '1') {
             $svc = new CaseRiskService();
             $riskScanResults = $svc->scanAll(30, auth()->user()->username);
             // store last scan globally in cache so other users can see popup
@@ -149,7 +149,7 @@ class DashboardController extends Controller
      */
     public function riskScan(Request $request)
     {
-        if (!auth()->check() || !in_array(auth()->user()->role, ['admin','inspector','analyst'])) {
+        if (!auth()->check() || !in_array(auth()->user()->role, ['analyst'])) {
             abort(403);
         }
 

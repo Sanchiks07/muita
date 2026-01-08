@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('checks');
             $table->string('assigned_to');
             $table->foreign('assigned_to')->references('username')->on('users');
+            $table->string('decision')->nullable();
+            $table->string('explanation')->nullable();
             $table->timestamps();
         });
     }

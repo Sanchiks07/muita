@@ -14,5 +14,7 @@ class Inspections extends Model {
         'location',
         'checks',
         'assigned_to',
+        'decision',
+        'explanation',
     ];
 }

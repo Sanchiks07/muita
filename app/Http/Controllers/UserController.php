@@ -25,7 +25,7 @@ class UserController extends Controller
             abort(403);
         }
 
-        return view('user_create');
+        return view('users.create');
     }
 
     /**
@@ -83,7 +83,7 @@ class UserController extends Controller
             return redirect()->route('dashboard')->with('error', 'User not found.');
         }
 
-        return view('user_edit', compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**

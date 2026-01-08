@@ -179,8 +179,17 @@ h1 {
     cursor: pointer;
 }
 
-.user input, .user select {
+.user input, .user select, .inspection input, .inspection select, .inspection textarea {
     width: 100%;
+}
+
+.inspection textarea {
+    resize: vertical;
+    min-height: 15vh;
+}
+
+.inspection button {
+    width: 75%;
 }
 
 .document input, .document select, .document button {
@@ -260,8 +269,8 @@ h1 {
     display: grid;
     grid-template-rows: 1fr 1fr;
     gap: 20px 0;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 /* ---------- BUTTONS ---------- */
@@ -449,12 +458,6 @@ img {
 
 .pagination span.cursor-default {
     cursor: default;
-}
-
-.pagination .current, .pagination .active span {
-    background-color: #111827;
-    color: #fff;
-    font-weight: 600;
 }
 
 .pagination svg {
@@ -649,10 +652,10 @@ img {
 }
 
 .dark-mode .pagination a, .dark-mode .pagination span {
-    color: #f0f0f0;
+    color: #f0f0f0 !important;
 }
 
-.pagination a:hover, .pagination span[aria-current="page"] > span {
+.dark-mode .pagination a:hover, .dark-mode .pagination span[aria-current="page"] > span {
     background-color: #444 !important;
 }
 
@@ -671,8 +674,4 @@ img {
 
 .dark-mode .navigation a {
     color: #f0f0f0;
-}
-
-.dark-mode .pagination a:hover {
-    background-color: #444;
 }

@@ -11,10 +11,6 @@ use Carbon\Carbon;
 class CaseRiskService
 {
     /**
-     * Compute a risk score and breakdown for a single case (uses only existing data).
-     *
-     * One distinct risk = +1 point.
-     *
      * @param \stdClass|Cases
      * @return array
      */
@@ -23,9 +19,7 @@ class CaseRiskService
         $score = 0;
         $details = [];
 
-        /* -------------------------------------------------
-         * 1. Existing risk flags (+1 point)
-         * ------------------------------------------------- */
+        // ---------- 1. Existing risk flags (+1 point) ----------
         $flagsCount = 0;
         if (!empty($case->risk_flags)) {
             $decoded = json_decode($case->risk_flags, true);
@@ -42,18 +36,14 @@ class CaseRiskService
             $details[] = "Existing risk flags present ({$flagsCount}) => +1";
         }
 
-        /* -------------------------------------------------
-         * 2. No documents uploaded (+1 point)
-         * ------------------------------------------------- */
+        // ---------- 2. No documents uploaded (+1 point) ----------
         $docCount = Documents::where('case_id', $case->api_id)->count();
         if ($docCount === 0) {
             $score += 1;
             $details[] = "No documents uploaded => +1";
         }
 
-        /* -------------------------------------------------
-         * 3. Vehicle not found (+1 point)
-         * ------------------------------------------------- */
+        // ---------- 3. Vehicle not found (+1 point) ----------
         $vehicle = Vehicles::where('api_id', $case->vehicle_id)->first();
         if (!$vehicle) {
             $score += 1;
@@ -72,9 +62,7 @@ class CaseRiskService
             }
         }
 
-        /* -------------------------------------------------
-         * 5. Night arrival (00:00–04:59) (+1 point)
-         * ------------------------------------------------- */
+        // ---------- 5. Night arrival (00:00–04:59) (+1 point) ----------
         if (!empty($case->arrival_ts)) {
             try {
                 $dt = Carbon::parse($case->arrival_ts);
@@ -88,18 +76,14 @@ class CaseRiskService
             }
         }
 
-        /* -------------------------------------------------
-         * 6. Risky status (+1 point)
-         * ------------------------------------------------- */
+        // ---------- 6. Risky status (binary) (+1 point) ----------
         $status = strtolower($case->status ?? '');
         if (in_array($status, ['new', 'screening', 'in inspection', 'on hold'], true)) {
             $score += 1;
             $details[] = "Status '{$case->status}' indicates risk => +1";
         }
 
-        /* -------------------------------------------------
-         * 7. Historical origin risk (binary) (+1 point)
-         * ------------------------------------------------- */
+        // ---------- 7. Historical origin risk (binary) (+1 point) ----------
         if (!empty($case->origin_country)) {
             $totalFromOrigin = Cases::where('origin_country', $case->origin_country)->count();
             if ($totalFromOrigin > 10) {
@@ -122,10 +106,8 @@ class CaseRiskService
         ];
     }
 
-    /**
-     * Scan all cases and generate auto inspections for those above threshold.
-     * Returns an array of results for reporting.
-     */
+    // Scans all cases and generates auto inspections
+    // Returns an array of results
     public function scanAll(int $threshold = 30, ?string $assignedTo = null): array
     {
         $results = [];

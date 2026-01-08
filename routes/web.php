@@ -14,7 +14,8 @@ use App\Http\Middleware;
 require __DIR__.'/auth.php';
 
 Route::get('/', function () { return view('auth.login'); })->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout')->middleware('auth');
 
 // user crud routes - admin only
@@ -39,9 +40,18 @@ Route::get('/cases/{id}/edit', [CasesController::class, 'edit'])->name('cases.ed
 Route::put('/cases/{id}', [CasesController::class, 'update'])->name('cases.update')->middleware('auth');
 Route::delete('/cases/{id}', [CasesController::class, 'destroy'])->name('cases.destroy')->middleware('auth');
 
-// risk scan - analyst only
+// risk scan routes - analyst only
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/risk-scan', [DashboardController::class, 'riskScan'])->name('risk.scan')->middleware('auth');
 
-// inspections - inspector only
+// inspections crud routes - inspector only
 Route::get('/inspections', [InspectionsController::class, 'index'])->name('inspections')->middleware('auth');
+Route::get('/inspection/create', [InspectionsController::class, 'create'])->name('inspections.create')->middleware('auth');
+Route::post('/inspections', [InspectionsController::class, 'store'])->name('inspections.store')->middleware('auth');
+Route::get('/inspections/{id}', [InspectionsController::class, 'show'])->name('inspections.show')->middleware('auth');
+Route::get('/inspections/{id}/edit', [InspectionsController::class, 'edit'])->name('inspections.edit')->middleware('auth');
+Route::put('/inspections/{id}', [InspectionsController::class, 'update'])->name('inspections.update')->middleware('auth');
+Route::delete('/inspections/{id}', [InspectionsController::class, 'destroy'])->name('inspections.destroy')->middleware('auth');
+// update route for inspection decision and explanation
+Route::put('/inspections/{id}/decision', [InspectionsController::class, 'updateDecision'])
+    ->name('inspections.updateDecision');

@@ -25,7 +25,7 @@ class CasesController extends Controller
             abort(403);
         }
 
-        return view('case_create');
+        return view('cases.create');
     }
 
     /**
@@ -107,7 +107,7 @@ class CasesController extends Controller
             return redirect()->route('dashboard')->with('error', 'Case not found.');
         }
 
-        return view('case_show', compact('case'));
+        return view('cases.show', compact('case'));
     }
 
     /**
@@ -125,7 +125,7 @@ class CasesController extends Controller
             return redirect()->route('dashboard')->with('error', 'Case not found.');
         }
 
-        return view('case_edit', compact('case'));
+        return view('cases.edit', compact('case'));
     }
 
     /**

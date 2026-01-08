@@ -26,6 +26,8 @@ class InspectionsSeeder extends Seeder
                 'location' => $inspections['location'],
                 'checks' => json_encode($inspections['checks']),
                 'assigned_to' => $inspections['assigned_to'],
+                'decision' => '',
+                'explanation' => '',
             ]);
         }
     }
